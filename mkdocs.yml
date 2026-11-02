@@ -1,0 +1,46 @@
+
+site_name: Tong's Knowledge Base
+site_description: A personal knowledge base for learning notes and ideas
+site_url: https://tongtong20260127-stack.github.io/
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+    - scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - 首页: index.md
+  - 数学: mathematics/index.md
+  - 物理: physics/index.md
+  - 化学: chemistry/index.md
+  - 生物: biology/index.md
+  - 英语: english/index.md
+  - 关于: about.md

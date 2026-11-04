@@ -18,10 +18,13 @@
 - 解析几何
 
 ### 03 · 圆锥曲线 Conic Sections
-- 椭圆
-- 双曲线
-- 抛物线
-- 圆锥曲线二级结论
+
+[进入圆锥曲线知识库 →](conic-sections/index.md)
+
+- [椭圆](conic-sections/ellipse.md)
+- [双曲线](conic-sections/hyperbola.md)
+- [抛物线](conic-sections/parabola.md)
+- [圆锥曲线二级结论](conic-sections/secondary.md)
 
 ### 04 · 概率与统计 Probability
 - 排列组合

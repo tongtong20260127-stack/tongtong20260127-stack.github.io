@@ -30,16 +30,18 @@
 
     <div class="quiz-actions">
       <button type="button" id="quiz-btn-answer" class="quiz-btn quiz-btn-answer">显示答案</button>
+      <button type="button" id="quiz-btn-wrong" class="quiz-btn quiz-btn-wrong">加入错题本</button>
       <button type="button" id="quiz-btn-next" class="quiz-btn quiz-btn-next">下一题</button>
     </div>
+    <p id="quiz-wrong-tip" class="quiz-wrong-tip" hidden></p>
   </div>
 
-  <p class="quiz-tip">提示：可先在脑海中作答，再点击「显示答案」对照；切换学科后会自动抽新题。</p>
+  <p class="quiz-tip">提示：登录后可将不会的题加入错题本；右上角可登录/查看账号。切换学科后会自动抽新题。</p>
 
 </div>
 
 !!! tip "使用说明"
     - 点击 **下一题** 随机抽取一道新题
-    - 点击 **显示答案** 查看参考答案（支持再次隐藏）
-    - 使用上方下拉框可按学科筛选题库
-    - 题目覆盖数学、物理、化学、生物、英语的核心知识点
+    - 点击 **显示答案** 查看参考答案
+    - 登录后点击 **加入错题本**，可在「错题本」页面复习
+    - 账号数据保存在本浏览器本地，清除站点数据会丢失

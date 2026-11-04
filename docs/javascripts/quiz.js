@@ -241,7 +241,32 @@
   }
 
   let current = null;
-  let lastIndex = -1;
+
+  function updateWrongBtn() {
+    const btn = $("quiz-btn-wrong");
+    if (!btn) return;
+    const user = window.KBAuth && KBAuth.currentUser();
+    if (!user) {
+      btn.disabled = false;
+      btn.textContent = "加入错题本（需登录）";
+      btn.classList.remove("is-added");
+      return;
+    }
+    if (!current) {
+      btn.disabled = true;
+      return;
+    }
+    const id = KBAuth.questionId(current);
+    const exists = KBAuth.getWrongBook().some((item) => item.id === id);
+    btn.disabled = false;
+    if (exists) {
+      btn.textContent = "已在错题本";
+      btn.classList.add("is-added");
+    } else {
+      btn.textContent = "加入错题本";
+      btn.classList.remove("is-added");
+    }
+  }
 
   function pickQuestion() {
     const pool = getFiltered();
@@ -251,6 +276,7 @@
       $("quiz-meta").textContent = "";
       $("quiz-answer-box").hidden = true;
       $("quiz-btn-answer").disabled = true;
+      updateWrongBtn();
       return;
     }
 
@@ -264,7 +290,6 @@
     }
 
     current = pool[idx];
-    lastIndex = idx;
 
     $("quiz-meta").textContent = current.subject + "  ·  " + current.topic;
     $("quiz-question").innerHTML = formatText(current.q);
@@ -273,6 +298,7 @@
     $("quiz-btn-answer").disabled = false;
     $("quiz-btn-answer").textContent = "显示答案";
 
+    updateWrongBtn();
     renderMath($("quiz-card"));
   }
 
@@ -289,19 +315,57 @@
     }
   }
 
+  function addWrong() {
+    if (!current) return;
+    if (!window.KBAuth) return;
+
+    if (!KBAuth.currentUser()) {
+      KBAuth.openModal();
+      return;
+    }
+
+    const result = KBAuth.addToWrongBook(current);
+    updateWrongBtn();
+
+    const tip = $("quiz-wrong-tip");
+    if (tip) {
+      if (result.reason === "exists") {
+        tip.textContent = "该题已在错题本中";
+      } else if (result.ok) {
+        tip.textContent = "已加入错题本（当前共 " + result.count + " 题）";
+      } else {
+        tip.textContent = "加入失败，请先登录";
+      }
+      tip.hidden = false;
+      clearTimeout(tip._t);
+      tip._t = setTimeout(() => {
+        tip.hidden = true;
+      }, 2200);
+    }
+
+    if (window.KBAuth.renderHeaderAuth) KBAuth.renderHeaderAuth();
+  }
+
   function init() {
     const root = $("quiz-app");
     if (!root) return;
 
+    // 避免重复绑定：用一次性标记
+    if (root.dataset.quizBound === "1") {
+      pickQuestion();
+      return;
+    }
+    root.dataset.quizBound = "1";
+
     $("quiz-btn-next")?.addEventListener("click", pickQuestion);
     $("quiz-btn-answer")?.addEventListener("click", toggleAnswer);
     $("quiz-subject")?.addEventListener("change", pickQuestion);
+    $("quiz-btn-wrong")?.addEventListener("click", addWrong);
 
-    // 统计题量
+    window.addEventListener("kb-auth-change", updateWrongBtn);
+
     const countEl = $("quiz-count");
-    if (countEl) {
-      countEl.textContent = QUESTIONS.length;
-    }
+    if (countEl) countEl.textContent = QUESTIONS.length;
 
     pickQuestion();
   }
@@ -312,8 +376,12 @@
     init();
   }
 
-  // MkDocs Instant Navigation 兼容
   if (typeof document$ !== "undefined") {
-    document$.subscribe(init);
+    document$.subscribe(() => {
+      // 允许重新 init（清除标记）
+      const root = document.getElementById("quiz-app");
+      if (root) root.dataset.quizBound = "0";
+      setTimeout(init, 0);
+    });
   }
 })();

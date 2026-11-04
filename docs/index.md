@@ -1,53 +1,60 @@
+<div class="kb-hero" markdown="0">
+  <h1>Tong's Knowledge Base</h1>
+  <p class="kb-tagline">探索 · 思考 · 记录 · 创造</p>
+  <p class="kb-desc">一个持续生长的个人知识空间，系统整理数学、物理、化学、生物与英语，连接不同学科的思想。</p>
+</div>
 
-# Tong's Knowledge Base
+## 知识领域 Knowledge Domains
 
-<p align="center">
-  <strong>探索 · 思考 · 记录 · 创造</strong>
-</p>
+<div class="kb-grid" markdown="0">
 
-欢迎来到我的个人知识库。
+  <a class="kb-card math" href="mathematics/">
+    <span class="kb-icon">📐</span>
+    <h3>数学 Mathematics</h3>
+    <p>代数 · 几何 · 圆锥曲线 · 概率统计<br>公式、定理与解题思想</p>
+    <span class="kb-link">进入数学 →</span>
+  </a>
 
-这里是一个持续生长的数字空间，用于整理知识、记录灵感、连接不同学科的思想。
+  <a class="kb-card physics" href="physics/">
+    <span class="kb-icon">⚛️</span>
+    <h3>物理 Physics</h3>
+    <p>力学 · 电磁学 · 近代物理<br>规律、模型与实验方法</p>
+    <span class="kb-link">进入物理 →</span>
+  </a>
+
+  <a class="kb-card chem" href="chemistry/">
+    <span class="kb-icon">🧪</span>
+    <h3>化学 Chemistry</h3>
+    <p>基础 · 反应原理 · 无机有机<br>结构、性质与反应规律</p>
+    <span class="kb-link">进入化学 →</span>
+  </a>
+
+  <a class="kb-card bio" href="biology/">
+    <span class="kb-icon">🧬</span>
+    <h3>生物 Biology</h3>
+    <p>细胞 · 遗传 · 稳态 · 生态<br>生命活动与进化规律</p>
+    <span class="kb-link">进入生物 →</span>
+  </a>
+
+  <a class="kb-card eng" href="english/">
+    <span class="kb-icon">📖</span>
+    <h3>英语 English</h3>
+    <p>词汇 · 语法 · 阅读 · 写作<br>语言知识与表达能力</p>
+    <span class="kb-link">进入英语 →</span>
+  </a>
+
+</div>
 
 ---
 
-## Knowledge Domains
+## 关于本空间 About This Space
 
-### 数学 Mathematics
+| 项目 | 说明 |
+|------|------|
+| **Purpose** | 构建结构化的个人知识体系 |
+| **Language** | 中文为主，中英结合 |
+| **Platform** | MkDocs Material + GitHub Pages |
+| **Status** | 持续更新中 |
 
-研究数学规律，整理解题方法、重要公式与数学思想。
-
-[进入数学知识库](mathematics/index.md)
-
-### 物理 Physics
-
-记录力学、电磁学、热学与近代物理中的重要概念。
-
-[进入物理知识库](physics/index.md)
-
-### 化学 Chemistry
-
-整理化学原理、反应规律、实验方法与知识体系。
-
-[进入化学知识库](chemistry/index.md)
-
-### 生物 Biology
-
-探索生命活动、遗传规律、细胞与生态系统。
-
-[进入生物知识库](biology/index.md)
-
-### 英语 English
-
-积累词汇、语法、写作素材与语言表达。
-
-[进入英语知识库](english/index.md)
-
----
-
-## About This Space
-
-- **Purpose:** Build a structured personal knowledge system.
-- **Language:** Chinese & English.
-- **Platform:** MkDocs Material.
-- **Status:** Continuously updating.
+!!! tip "使用提示"
+    点击上方卡片或顶部导航进入各学科。侧边栏可展开子模块，支持深色/浅色模式切换与全文搜索。

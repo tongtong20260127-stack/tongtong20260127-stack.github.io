@@ -7,7 +7,6 @@
   const SESSION_KEY = "kb_session_v1";
   const WRONG_PREFIX = "kb_wrongbook_v1_";
 
-  // ---------- 简单哈希（非安全加密，仅避免明文直存） ----------
   function simpleHash(str) {
     let h = 5381;
     for (let i = 0; i < str.length; i++) {
@@ -19,7 +18,7 @@
   function getUsers() {
     try {
       return JSON.parse(localStorage.getItem(USERS_KEY) || "{}");
-    } catch {
+    } catch (e) {
       return {};
     }
   }
@@ -31,7 +30,7 @@
   function getSession() {
     try {
       return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
-    } catch {
+    } catch (e) {
       return null;
     }
   }
@@ -58,7 +57,7 @@
     if (!username) return [];
     try {
       return JSON.parse(localStorage.getItem(wrongKey(username)) || "[]");
-    } catch {
+    } catch (e) {
       return [];
     }
   }
@@ -79,11 +78,11 @@
     if (!user) return { ok: false, reason: "not_login" };
     const list = getWrongBook(user);
     const id = questionId(question);
-    if (list.some((item) => item.id === id)) {
+    if (list.some(function (item) { return item.id === id; })) {
       return { ok: true, reason: "exists", count: list.length };
     }
     list.unshift({
-      id,
+      id: id,
       subject: question.subject,
       topic: question.topic,
       q: question.q,
@@ -97,7 +96,7 @@
   function removeFromWrongBook(id) {
     const user = currentUser();
     if (!user) return false;
-    const list = getWrongBook(user).filter((item) => item.id !== id);
+    const list = getWrongBook(user).filter(function (item) { return item.id !== id; });
     saveWrongBook(list, user);
     return true;
   }
@@ -141,12 +140,6 @@
     setSession(null);
   }
 
-  // ---------- UI：右上角登录按钮 + 弹窗 ----------
-  function ensureStyles() {
-    if (document.getElementById("kb-auth-style")) return;
-    // 样式已在 extra.css 中定义
-  }
-
   function createModal() {
     if (document.getElementById("kb-auth-modal")) return;
 
@@ -154,62 +147,58 @@
     modal.id = "kb-auth-modal";
     modal.className = "kb-auth-modal";
     modal.hidden = true;
-    modal.innerHTML = `
-      <div class="kb-auth-backdrop" data-auth-close></div>
-      <div class="kb-auth-dialog" role="dialog" aria-modal="true" aria-labelledby="kb-auth-title">
-        <button type="button" class="kb-auth-close" data-auth-close aria-label="关闭">×</button>
-        <h3 id="kb-auth-title" class="kb-auth-title">登录</h3>
-        <p class="kb-auth-note">账号保存在本浏览器本地，清除浏览器数据会丢失。</p>
-        <div class="kb-auth-tabs">
-          <button type="button" class="kb-auth-tab active" data-auth-tab="login">登录</button>
-          <button type="button" class="kb-auth-tab" data-auth-tab="register">注册</button>
-        </div>
-        <form id="kb-auth-form" class="kb-auth-form" autocomplete="on">
-          <label class="kb-auth-field">
-            <span>用户名</span>
-            <input type="text" id="kb-auth-username" name="username" required minlength="2" maxlength="32" placeholder="请输入用户名" />
-          </label>
-          <label class="kb-auth-field">
-            <span>密码</span>
-            <input type="password" id="kb-auth-password" name="password" required minlength="4" maxlength="64" placeholder="请输入密码" />
-          </label>
-          <p id="kb-auth-msg" class="kb-auth-msg" hidden></p>
-          <button type="submit" id="kb-auth-submit" class="kb-auth-submit">登录</button>
-        </form>
-      </div>
-    `;
+    modal.innerHTML =
+      '<div class="kb-auth-backdrop" data-auth-close></div>' +
+      '<div class="kb-auth-dialog" role="dialog" aria-modal="true" aria-labelledby="kb-auth-title">' +
+      '<button type="button" class="kb-auth-close" data-auth-close aria-label="关闭">×</button>' +
+      '<h3 id="kb-auth-title" class="kb-auth-title">登录</h3>' +
+      '<p class="kb-auth-note">账号保存在本浏览器本地，清除浏览器数据会丢失。</p>' +
+      '<div class="kb-auth-tabs">' +
+      '<button type="button" class="kb-auth-tab active" data-auth-tab="login">登录</button>' +
+      '<button type="button" class="kb-auth-tab" data-auth-tab="register">注册</button>' +
+      "</div>" +
+      '<form id="kb-auth-form" class="kb-auth-form" autocomplete="on">' +
+      '<label class="kb-auth-field"><span>用户名</span>' +
+      '<input type="text" id="kb-auth-username" name="username" required minlength="2" maxlength="32" placeholder="请输入用户名" /></label>' +
+      '<label class="kb-auth-field"><span>密码</span>' +
+      '<input type="password" id="kb-auth-password" name="password" required minlength="4" maxlength="64" placeholder="请输入密码" /></label>' +
+      '<p id="kb-auth-msg" class="kb-auth-msg" hidden></p>' +
+      '<button type="submit" id="kb-auth-submit" class="kb-auth-submit">登录</button>' +
+      "</form></div>";
     document.body.appendChild(modal);
 
     let mode = "login";
 
-    modal.querySelectorAll("[data-auth-close]").forEach((el) => {
-      el.addEventListener("click", () => closeModal());
+    modal.querySelectorAll("[data-auth-close]").forEach(function (el) {
+      el.addEventListener("click", function () { closeModal(); });
     });
 
-    modal.querySelectorAll("[data-auth-tab]").forEach((tab) => {
-      tab.addEventListener("click", () => {
+    modal.querySelectorAll("[data-auth-tab]").forEach(function (tab) {
+      tab.addEventListener("click", function () {
         mode = tab.getAttribute("data-auth-tab");
-        modal.querySelectorAll("[data-auth-tab]").forEach((t) => t.classList.remove("active"));
+        modal.querySelectorAll("[data-auth-tab]").forEach(function (t) {
+          t.classList.remove("active");
+        });
         tab.classList.add("active");
         document.getElementById("kb-auth-title").textContent = mode === "login" ? "登录" : "注册";
         document.getElementById("kb-auth-submit").textContent = mode === "login" ? "登录" : "注册并登录";
-        const msg = document.getElementById("kb-auth-msg");
+        var msg = document.getElementById("kb-auth-msg");
         msg.hidden = true;
         msg.textContent = "";
       });
     });
 
-    document.getElementById("kb-auth-form").addEventListener("submit", (e) => {
+    document.getElementById("kb-auth-form").addEventListener("submit", function (e) {
       e.preventDefault();
-      const username = document.getElementById("kb-auth-username").value;
-      const password = document.getElementById("kb-auth-password").value;
-      const result = mode === "login" ? login(username, password) : register(username, password);
-      const msg = document.getElementById("kb-auth-msg");
+      var username = document.getElementById("kb-auth-username").value;
+      var password = document.getElementById("kb-auth-password").value;
+      var result = mode === "login" ? login(username, password) : register(username, password);
+      var msg = document.getElementById("kb-auth-msg");
       msg.hidden = false;
       msg.textContent = result.msg;
       msg.className = "kb-auth-msg " + (result.ok ? "ok" : "err");
       if (result.ok) {
-        setTimeout(() => {
+        setTimeout(function () {
           closeModal();
           renderHeaderAuth();
           window.dispatchEvent(new CustomEvent("kb-auth-change"));
@@ -220,29 +209,33 @@
 
   function openModal() {
     createModal();
-    const modal = document.getElementById("kb-auth-modal");
+    var modal = document.getElementById("kb-auth-modal");
     modal.hidden = false;
     document.body.classList.add("kb-auth-open");
-    setTimeout(() => document.getElementById("kb-auth-username")?.focus(), 50);
+    setTimeout(function () {
+      var input = document.getElementById("kb-auth-username");
+      if (input) input.focus();
+    }, 50);
   }
 
   function closeModal() {
-    const modal = document.getElementById("kb-auth-modal");
+    var modal = document.getElementById("kb-auth-modal");
     if (modal) modal.hidden = true;
     document.body.classList.remove("kb-auth-open");
   }
 
   function renderHeaderAuth() {
-    const header = document.querySelector(".md-header__inner");
+    var header = document.querySelector(".md-header__inner");
     if (!header) return;
 
-    let slot = document.getElementById("kb-header-auth");
+    var slot = document.getElementById("kb-header-auth");
     if (!slot) {
       slot = document.createElement("div");
       slot.id = "kb-header-auth";
       slot.className = "kb-header-auth";
-      // 插入到搜索按钮附近（header 右侧）
-      const source = header.querySelector("[data-md-component="search"]") || header.querySelector(".md-header__source");
+      var source =
+        header.querySelector('[data-md-component="search"]') ||
+        header.querySelector(".md-header__source");
       if (source) {
         header.insertBefore(slot, source);
       } else {
@@ -250,28 +243,36 @@
       }
     }
 
-    const user = currentUser();
+    var user = currentUser();
     if (user) {
-      const wrongCount = getWrongBook(user).length;
-      slot.innerHTML = `
-        <a class="kb-auth-user" href="wrongbook/" title="我的错题本">
-          <span class="kb-auth-avatar">${user.charAt(0).toUpperCase()}</span>
-          <span class="kb-auth-name">${escapeHtml(user)}</span>
-          ${wrongCount ? `<span class="kb-auth-badge">${wrongCount}</span>` : ""}
-        </a>
-        <button type="button" class="kb-auth-logout" title="退出登录">退出</button>
-      `;
-      slot.querySelector(".kb-auth-logout").addEventListener("click", () => {
+      var wrongCount = getWrongBook(user).length;
+      slot.innerHTML =
+        '<a class="kb-auth-user" href="' + resolveWrongbookHref() + '" title="我的错题本">' +
+        '<span class="kb-auth-avatar">' + user.charAt(0).toUpperCase() + "</span>" +
+        '<span class="kb-auth-name">' + escapeHtml(user) + "</span>" +
+        (wrongCount ? '<span class="kb-auth-badge">' + wrongCount + "</span>" : "") +
+        "</a>" +
+        '<button type="button" class="kb-auth-logout" title="退出登录">退出</button>';
+      slot.querySelector(".kb-auth-logout").addEventListener("click", function () {
         logout();
         renderHeaderAuth();
         window.dispatchEvent(new CustomEvent("kb-auth-change"));
       });
     } else {
-      slot.innerHTML = `
-        <button type="button" class="kb-auth-login-btn" id="kb-open-login">登录</button>
-      `;
+      slot.innerHTML = '<button type="button" class="kb-auth-login-btn" id="kb-open-login">登录</button>';
       slot.querySelector("#kb-open-login").addEventListener("click", openModal);
     }
+  }
+
+  function resolveWrongbookHref() {
+    // 尽量兼容不同层级路径
+    var path = window.location.pathname || "";
+    if (path.indexOf("/wrongbook") !== -1) return "./";
+    if (path === "/" || /index\.html?$/.test(path) || path.endsWith("/tongtong20260127-stack.github.io/")) {
+      return "wrongbook/";
+    }
+    // 子页面时回到站点根下的 wrongbook
+    return "/wrongbook/";
   }
 
   function escapeHtml(s) {
@@ -282,23 +283,21 @@
       .replace(/"/g, "&quot;");
   }
 
-  // 暴露给 quiz / wrongbook
   window.KBAuth = {
-    currentUser,
-    login,
-    register,
-    logout,
-    openModal,
-    getWrongBook,
-    addToWrongBook,
-    removeFromWrongBook,
-    clearWrongBook,
-    questionId,
-    renderHeaderAuth
+    currentUser: currentUser,
+    login: login,
+    register: register,
+    logout: logout,
+    openModal: openModal,
+    getWrongBook: getWrongBook,
+    addToWrongBook: addToWrongBook,
+    removeFromWrongBook: removeFromWrongBook,
+    clearWrongBook: clearWrongBook,
+    questionId: questionId,
+    renderHeaderAuth: renderHeaderAuth
   };
 
   function boot() {
-    ensureStyles();
     createModal();
     renderHeaderAuth();
   }
@@ -310,8 +309,7 @@
   }
 
   if (typeof document$ !== "undefined") {
-    document$.subscribe(() => {
-      // instant navigation 后重新挂载 header 控件
+    document$.subscribe(function () {
       setTimeout(boot, 0);
     });
   }

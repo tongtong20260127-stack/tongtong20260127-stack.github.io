@@ -175,12 +175,14 @@
 .kb-card.chem   { --card-accent: #ef5350; }
 .kb-card.bio    { --card-accent: #66bb6a; }
 .kb-card.eng    { --card-accent: #42a5f5; }
+.kb-card.quiz   { --card-accent: #ab47bc; }
 
 .kb-card.math:hover   { border-color: #5c6bc0; }
 .kb-card.physics:hover { border-color: #26a69a; }
 .kb-card.chem:hover   { border-color: #ef5350; }
 .kb-card.bio:hover    { border-color: #66bb6a; }
 .kb-card.eng:hover    { border-color: #42a5f5; }
+.kb-card.quiz:hover   { border-color: #ab47bc; }
 
 /* ---------- 信息框 / Admonition 美化 ---------- */
 .md-typeset .admonition {
@@ -327,4 +329,175 @@ html {
 /* ---------- 内容区最大宽度微调 ---------- */
 .md-grid {
   max-width: 64rem;
+}
+
+/* ============================================
+   随机练习 Quiz
+   ============================================ */
+.quiz-app {
+  margin: 1rem 0 2rem;
+}
+
+.quiz-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.quiz-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.quiz-select {
+  appearance: none;
+  padding: 0.45rem 2rem 0.45rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.88rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  transition: var(--kb-transition);
+}
+
+.quiz-select:hover,
+.quiz-select:focus {
+  border-color: var(--md-accent-fg-color);
+  outline: none;
+}
+
+.quiz-count-badge {
+  font-size: 0.82rem;
+  opacity: 0.75;
+  margin-left: auto;
+}
+
+.quiz-card {
+  padding: 1.6rem 1.5rem;
+  border-radius: var(--kb-radius);
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  box-shadow: var(--kb-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.quiz-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--md-primary-fg-color), #ab47bc, var(--md-accent-fg-color));
+}
+
+.quiz-meta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--md-accent-fg-color);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.9rem;
+  text-transform: none;
+}
+
+.quiz-question {
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.7;
+  margin-bottom: 1.4rem;
+  min-height: 3em;
+}
+
+.quiz-answer-box {
+  margin: 0 0 1.4rem;
+  padding: 1rem 1.15rem;
+  border-radius: 10px;
+  background: rgba(38, 166, 154, 0.08);
+  border: 1px solid rgba(38, 166, 154, 0.35);
+  animation: quiz-fade-in 0.3s ease;
+}
+
+[data-md-color-scheme="slate"] .quiz-answer-box {
+  background: rgba(38, 166, 154, 0.12);
+  border-color: rgba(38, 166, 154, 0.4);
+}
+
+@keyframes quiz-fade-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.quiz-answer-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #26a69a;
+  margin-bottom: 0.45rem;
+}
+
+.quiz-answer {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.quiz-btn {
+  appearance: none;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--kb-transition);
+  font-family: inherit;
+}
+
+.quiz-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.quiz-btn-answer {
+  background: linear-gradient(135deg, #26a69a, #00897b);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(38, 166, 154, 0.35);
+}
+
+.quiz-btn-answer:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(38, 166, 154, 0.45);
+}
+
+.quiz-btn-next {
+  background: linear-gradient(135deg, var(--md-primary-fg-color), #5c6bc0);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(92, 107, 192, 0.35);
+}
+
+.quiz-btn-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(92, 107, 192, 0.45);
+}
+
+.quiz-tip {
+  margin-top: 1.2rem;
+  font-size: 0.82rem;
+  opacity: 0.7;
 }

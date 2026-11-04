@@ -40,14 +40,142 @@ nav:
   - 首页: index.md
   - 数学:
     - 概述: mathematics/index.md
+    - 代数:
+      - 概述: mathematics/algebra/index.md
+      - 函数与方程: mathematics/algebra/functions.md
+      - 数列: mathematics/algebra/sequences.md
+      - 不等式: mathematics/algebra/inequalities.md
+    - 几何:
+      - 概述: mathematics/geometry/index.md
+      - 平面几何: mathematics/geometry/plane.md
+      - 立体几何: mathematics/geometry/solid.md
+      - 解析几何: mathematics/geometry/analytic.md
     - 圆锥曲线:
       - 概述: mathematics/conic-sections/index.md
       - 椭圆: mathematics/conic-sections/ellipse.md
       - 双曲线: mathematics/conic-sections/hyperbola.md
       - 抛物线: mathematics/conic-sections/parabola.md
       - 二级结论: mathematics/conic-sections/secondary.md
-  - 物理: physics/index.md
-  - 化学: chemistry/index.md
-  - 生物: biology/index.md
-  - 英语: english/index.md
+    - 概率与统计:
+      - 概述: mathematics/probability/index.md
+      - 排列组合: mathematics/probability/combinatorics.md
+      - 概率: mathematics/probability/probability.md
+      - 统计与分布: mathematics/probability/statistics.md
+  - 物理:
+    - 概述: physics/index.md
+    - 力学:
+      - 概述: physics/mechanics/index.md
+      - 运动学与牛顿定律: physics/mechanics/kinematics-newton.md
+      - 动量与能量: physics/mechanics/momentum-energy.md
+      - 圆周运动与万有引力: physics/mechanics/circular-gravity.md
+      - 机械振动与机械波: physics/mechanics/vibration-wave.md
+    - 电场与电路:
+      - 概述: physics/electricity/index.md
+      - 静电场与电势: physics/electricity/electrostatics.md
+      - 电容器: physics/electricity/capacitor.md
+      - 恒定电流: physics/electricity/current.md
+      - 电动势与闭合电路: physics/electricity/emf.md
+    - 磁场与电磁感应:
+      - 概述: physics/electromagnetism/index.md
+      - 磁场与安培力: physics/electromagnetism/magnetic-field.md
+      - 洛伦兹力: physics/electromagnetism/lorentz.md
+      - 电磁感应: physics/electromagnetism/induction.md
+      - 楞次定律与自感: physics/electromagnetism/lenz-self.md
+    - 交变电流与电磁波:
+      - 概述: physics/ac-waves/index.md
+      - 正弦式交变电流: physics/ac-waves/ac.md
+      - 变压器: physics/ac-waves/transformer.md
+      - 电磁波: physics/ac-waves/em-waves.md
+    - 近代物理:
+      - 概述: physics/modern/index.md
+      - 光电效应: physics/modern/photoelectric.md
+      - 原子结构: physics/modern/atom.md
+      - 原子核与核反应: physics/modern/nucleus.md
+  - 化学:
+    - 概述: chemistry/index.md
+    - 化学基础:
+      - 概述: chemistry/fundamentals/index.md
+      - 物质的量: chemistry/fundamentals/mole.md
+      - 离子与氧化还原: chemistry/fundamentals/ion-redox.md
+      - 实验基础: chemistry/fundamentals/lab-basics.md
+    - 反应原理:
+      - 概述: chemistry/reaction/index.md
+      - 反应速率: chemistry/reaction/rate.md
+      - 化学平衡: chemistry/reaction/equilibrium.md
+      - 电离与离子平衡: chemistry/reaction/ionization.md
+      - 原电池: chemistry/reaction/electrochemistry.md
+      - 电解池: chemistry/reaction/electrolysis.md
+    - 无机化学:
+      - 概述: chemistry/inorganic/index.md
+      - 元素周期律: chemistry/inorganic/periodic.md
+      - 金属及其化合物: chemistry/inorganic/metals.md
+      - 非金属及其化合物: chemistry/inorganic/nonmetals.md
+    - 有机化学:
+      - 概述: chemistry/organic/index.md
+      - 烃及其衍生物: chemistry/organic/hydrocarbons.md
+      - 官能团与反应: chemistry/organic/functional.md
+      - 结构与性质: chemistry/organic/structure.md
+      - 合成与推断: chemistry/organic/synthesis.md
+    - 实验与探究:
+      - 概述: chemistry/experiments/index.md
+      - 方案设计: chemistry/experiments/design.md
+      - 现象与解释: chemistry/experiments/phenomenon.md
+      - 定量与误差: chemistry/experiments/quantitative.md
+  - 生物:
+    - 概述: biology/index.md
+    - 细胞生物学:
+      - 概述: biology/cell/index.md
+      - 细胞结构与功能: biology/cell/structure.md
+      - 物质运输: biology/cell/transport.md
+      - 呼吸与光合: biology/cell/energy.md
+      - 增殖与分化: biology/cell/proliferation.md
+    - 遗传与进化:
+      - 概述: biology/genetics/index.md
+      - 遗传规律: biology/genetics/mendel.md
+      - DNA与基因: biology/genetics/dna.md
+      - 基因表达: biology/genetics/expression.md
+      - 生物进化: biology/genetics/evolution.md
+    - 稳态与调节:
+      - 概述: biology/homeostasis/index.md
+      - 内环境与稳态: biology/homeostasis/internal.md
+      - 神经调节: biology/homeostasis/nervous.md
+      - 体液调节: biology/homeostasis/humoral.md
+      - 免疫调节: biology/homeostasis/immune.md
+    - 生态学:
+      - 概述: biology/ecology/index.md
+      - 种群与群落: biology/ecology/population.md
+      - 生态系统: biology/ecology/ecosystem.md
+      - 能量与物质: biology/ecology/flow.md
+      - 生物多样性: biology/ecology/biodiversity.md
+  - 英语:
+    - 概述: english/index.md
+    - 词汇:
+      - 概述: english/vocabulary/index.md
+      - 高频词汇: english/vocabulary/high-frequency.md
+      - 词根词缀: english/vocabulary/roots.md
+      - 近义辨析: english/vocabulary/synonyms.md
+      - 固定搭配: english/vocabulary/collocations.md
+    - 语法:
+      - 概述: english/grammar/index.md
+      - 时态与语态: english/grammar/tense-voice.md
+      - 非谓语动词: english/grammar/non-finite.md
+      - 从句: english/grammar/clauses.md
+      - 虚拟与倒装: english/grammar/subjunctive-inversion.md
+    - 阅读:
+      - 概述: english/reading/index.md
+      - 长难句: english/reading/long-sentences.md
+      - 解题技巧: english/reading/skills.md
+      - 篇章逻辑: english/reading/structure.md
+    - 写作:
+      - 概述: english/writing/index.md
+      - 应用文: english/writing/practical.md
+      - 读后续写: english/writing/continuation.md
+      - 高分表达: english/writing/advanced.md
+      - 篇章组织: english/writing/organization.md
+    - 听说:
+      - 概述: english/listening-speaking/index.md
+      - 日常交际: english/listening-speaking/daily.md
+      - 话题词汇: english/listening-speaking/topics.md
+      - 口语演讲: english/listening-speaking/speaking.md
+      - 听力技巧: english/listening-speaking/listening.md
   - 关于: about.md

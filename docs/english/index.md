@@ -1,4 +1,3 @@
-
 # English 英语
 
 > Language is the road map of a culture.
@@ -8,36 +7,48 @@
 ## Knowledge Domains
 
 ### 01 · Vocabulary 词汇积累
-- 高频词汇与熟词生义
-- 词根、词缀与构词法
-- 同义词与近义词辨析
-- 固定搭配与习惯表达
+
+[进入词汇知识库 →](vocabulary/index.md)
+
+- [高频词汇与熟词生义](vocabulary/high-frequency.md)
+- [词根词缀与构词法](vocabulary/roots.md)
+- [同义词与近义词辨析](vocabulary/synonyms.md)
+- [固定搭配与习惯表达](vocabulary/collocations.md)
 
 ### 02 · Grammar 语法体系
-- 时态与语态
-- 非谓语动词
-- 定语从句与名词性从句
-- 状语从句与特殊句式
-- 虚拟语气与倒装
+
+[进入语法知识库 →](grammar/index.md)
+
+- [时态与语态](grammar/tense-voice.md)
+- [非谓语动词](grammar/non-finite.md)
+- [从句](grammar/clauses.md)
+- [虚拟语气与倒装](grammar/subjunctive-inversion.md)
 
 ### 03 · Reading 阅读理解
-- 长难句分析
-- 阅读理解解题技巧
-- 篇章结构与逻辑关系
-- 主旨概括与推理判断
+
+[进入阅读知识库 →](reading/index.md)
+
+- [长难句分析](reading/long-sentences.md)
+- [阅读理解解题技巧](reading/skills.md)
+- [篇章结构与逻辑关系](reading/structure.md)
 
 ### 04 · Writing 写作表达
-- 应用文写作
-- 读后续写
-- 高分句型与高级表达
-- 开头、结尾与段落衔接
-- 主题词汇与写作素材
+
+[进入写作知识库 →](writing/index.md)
+
+- [应用文写作](writing/practical.md)
+- [读后续写](writing/continuation.md)
+- [高分句型与高级表达](writing/advanced.md)
+- [开头、结尾与段落衔接](writing/organization.md)
 
 ### 05 · Listening & Speaking 听说能力
-- 日常交际表达
-- 话题词汇
-- 口语表达与演讲
-- 听力理解技巧
+
+[进入听说知识库 →](listening-speaking/index.md)
+
+- [日常交际表达](listening-speaking/daily.md)
+- [话题词汇](listening-speaking/topics.md)
+- [口语表达与演讲](listening-speaking/speaking.md)
+- [听力理解技巧](listening-speaking/listening.md)
 
 ## Learning Strategies
 

@@ -1,4 +1,3 @@
-
 # Mathematics 数学
 
 > Mathematics is the language of the universe.
@@ -8,14 +7,20 @@
 ## 知识模块
 
 ### 01 · 代数 Algebra
-- 函数与方程
-- 数列
-- 不等式
+
+[进入代数知识库 →](algebra/index.md)
+
+- [函数与方程](algebra/functions.md)
+- [数列](algebra/sequences.md)
+- [不等式](algebra/inequalities.md)
 
 ### 02 · 几何 Geometry
-- 平面几何
-- 立体几何
-- 解析几何
+
+[进入几何知识库 →](geometry/index.md)
+
+- [平面几何](geometry/plane.md)
+- [立体几何](geometry/solid.md)
+- [解析几何](geometry/analytic.md)
 
 ### 03 · 圆锥曲线 Conic Sections
 
@@ -27,9 +32,12 @@
 - [圆锥曲线二级结论](conic-sections/secondary.md)
 
 ### 04 · 概率与统计 Probability
-- 排列组合
-- 概率
-- 统计与分布
+
+[进入概率统计知识库 →](probability/index.md)
+
+- [排列组合](probability/combinatorics.md)
+- [概率](probability/probability.md)
+- [统计与分布](probability/statistics.md)
 
 ## 学习方法
 

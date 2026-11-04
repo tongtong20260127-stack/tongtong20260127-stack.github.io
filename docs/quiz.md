@@ -21,11 +21,11 @@
 
   <div id="quiz-card" class="quiz-card">
     <div id="quiz-meta" class="quiz-meta"></div>
-    <div id="quiz-question" class="quiz-question">加载中…</div>
+    <div id="quiz-question" class="quiz-question kb-math arithmatex">加载中…</div>
 
     <div id="quiz-answer-box" class="quiz-answer-box" hidden>
       <div class="quiz-answer-title">答案</div>
-      <div id="quiz-answer" class="quiz-answer"></div>
+      <div id="quiz-answer" class="quiz-answer kb-math arithmatex"></div>
     </div>
 
     <div class="quiz-actions">

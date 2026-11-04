@@ -63,8 +63,10 @@ extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
+  - javascripts/auth.js
   - javascripts/extra.js
   - javascripts/quiz.js
+  - javascripts/wrongbook.js
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
@@ -110,6 +112,7 @@ extra:
 nav:
   - 首页: index.md
   - 随机练习: quiz.md
+  - 错题本: wrongbook.md
   - 数学:
     - 概述: mathematics/index.md
     - 代数:

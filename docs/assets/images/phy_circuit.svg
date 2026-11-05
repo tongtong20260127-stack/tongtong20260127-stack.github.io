@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 240" width="460" height="240">
+  <rect width="460" height="240" fill="#fafafa"/>
+  <line x1="80" y1="60" x2="360" y2="60" stroke="#333" stroke-width="2"/>
+  <line x1="80" y1="180" x2="360" y2="180" stroke="#333" stroke-width="2"/>
+  <line x1="360" y1="60" x2="360" y2="180" stroke="#333" stroke-width="2"/>
+  <line x1="80" y1="60" x2="80" y2="90" stroke="#333" stroke-width="2"/>
+  <line x1="80" y1="150" x2="80" y2="180" stroke="#333" stroke-width="2"/>
+  <line x1="65" y1="90" x2="95" y2="90" stroke="#333" stroke-width="3"/>
+  <line x1="70" y1="150" x2="90" y2="150" stroke="#333" stroke-width="2"/>
+  <text x="50" y="125" text-anchor="middle" fill="#333" font-size="13" font-family="sans-serif">E,r</text>
+  <polyline points="160,60 175,45 190,75 205,45 220,75 235,45 250,60" fill="none" stroke="#e53935" stroke-width="2.5"/>
+  <text x="205" y="40" text-anchor="middle" fill="#e53935" font-size="14" font-family="sans-serif">R</text>
+  <line x1="160" y1="200" x2="280" y2="200" stroke="#1e88e5" stroke-width="2"/>
+  <polygon points="280,200 268,194 268,206" fill="#1e88e5"/>
+  <text x="220" y="220" text-anchor="middle" fill="#1e88e5" font-size="13" font-family="sans-serif">I = E / (R + r)</text>
+  <text x="230" y="25" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">Closed circuit</text>
+</svg>

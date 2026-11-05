@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 220" width="480" height="220">
+  <rect width="480" height="220" fill="#fafafa"/>
+  <rect x="40" y="40" width="400" height="140" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="240" y="85" text-anchor="middle" fill="#1565c0" font-size="20" font-family="sans-serif">n = m / M = N / NA</text>
+  <text x="240" y="120" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">NA ≈ 6.02×10^23 mol^-1</text>
+  <text x="240" y="150" text-anchor="middle" fill="#555" font-size="12" font-family="sans-serif">n: amount (mol) · m: mass · M: molar mass · N: particles</text>
+  <text x="240" y="28" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">Amount of substance (mole)</text>
+</svg>

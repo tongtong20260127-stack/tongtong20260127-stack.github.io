@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 340" width="480" height="340">
+  <rect width="480" height="340" fill="#fafafa"/>
+  <ellipse cx="240" cy="175" rx="190" ry="130" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+  <circle cx="240" cy="175" r="48" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+  <text x="240" y="180" text-anchor="middle" fill="#0d47a1" font-size="13" font-family="sans-serif">nucleus</text>
+  <ellipse cx="120" cy="120" rx="36" ry="20" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="120" y="125" text-anchor="middle" fill="#e65100" font-size="11" font-family="sans-serif">mito.</text>
+  <ellipse cx="360" cy="120" rx="36" ry="20" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="360" y="125" text-anchor="middle" fill="#e65100" font-size="11" font-family="sans-serif">mito.</text>
+  <ellipse cx="350" cy="230" rx="40" ry="18" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5"/>
+  <text x="350" y="235" text-anchor="middle" fill="#6a1b9a" font-size="11" font-family="sans-serif">ER</text>
+  <circle cx="130" cy="230" r="14" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+  <text x="130" y="234" text-anchor="middle" fill="#b71c1c" font-size="10" font-family="sans-serif">rib</text>
+  <text x="240" y="320" text-anchor="middle" fill="#555" font-size="12" font-family="sans-serif">Animal cell (simplified schematic)</text>
+  <text x="240" y="28" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">Cell structure</text>
+</svg>

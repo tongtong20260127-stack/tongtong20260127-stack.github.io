@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 220" width="500" height="220">
+  <rect width="500" height="220" fill="#fafafa"/>
+  <rect x="30" y="60" width="180" height="100" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="120" y="95" text-anchor="middle" fill="#1b5e20" font-size="14" font-family="sans-serif">Chloroplast</text>
+  <text x="120" y="120" text-anchor="middle" fill="#333" font-size="12" font-family="sans-serif">Photosynthesis</text>
+  <text x="120" y="145" text-anchor="middle" fill="#555" font-size="11" font-family="sans-serif">CO2 + H2O -> (CH2O) + O2</text>
+  <rect x="290" y="60" width="180" height="100" rx="10" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+  <text x="380" y="95" text-anchor="middle" fill="#e65100" font-size="14" font-family="sans-serif">Mitochondrion</text>
+  <text x="380" y="120" text-anchor="middle" fill="#333" font-size="12" font-family="sans-serif">Respiration</text>
+  <text x="380" y="145" text-anchor="middle" fill="#555" font-size="11" font-family="sans-serif">(CH2O) + O2 -> CO2 + H2O</text>
+  <line x1="220" y1="110" x2="280" y2="110" stroke="#546e7a" stroke-width="2"/>
+  <text x="250" y="100" text-anchor="middle" fill="#546e7a" font-size="11" font-family="sans-serif">energy</text>
+  <text x="250" y="30" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">Photosynthesis and respiration</text>
+</svg>

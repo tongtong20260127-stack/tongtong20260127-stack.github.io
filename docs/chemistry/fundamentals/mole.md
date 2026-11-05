@@ -10,6 +10,8 @@ $$n = \dfrac{N}{N_A} = \dfrac{m}{M} = \dfrac{V}{V_m}$$
 
 （气体在标准状况下 $V_m = 22.4\ \mathrm{L/mol}$）
 
+![物质的量基本关系](../../assets/images/chem_mole.svg)
+
 ---
 
 ## 2. 摩尔质量与气体摩尔体积

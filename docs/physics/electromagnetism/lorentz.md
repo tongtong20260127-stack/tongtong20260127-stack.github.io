@@ -16,6 +16,8 @@ $$F = qvB\sin\theta$$
 - 速度与 $\vec{B}$ 垂直：匀速圆周运动，半径 $R = \dfrac{mv}{qB}$，周期 $T = \dfrac{2\pi m}{qB}$
 - 一般情况：螺旋运动
 
+![匀强磁场中带电粒子做圆周运动示意](../../assets/images/phy_lorentz.svg)
+
 ---
 
 [返回电磁学首页](index.md) · [返回物理知识库](../index.md)

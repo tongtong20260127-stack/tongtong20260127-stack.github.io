@@ -21,6 +21,8 @@ $6CO_2 + 12H_2O \xrightarrow{光} C_6H_{12}O_6 + 6O_2 + 6H_2O$
 - 光反应：类囊体薄膜，水的光解、ATP 和 [H] 的生成
 - 暗反应：叶绿体基质，CO₂ 固定与 $C_3$ 还原
 
+![光合作用与呼吸作用关系示意](../../assets/images/bio_energy.svg)
+
 ---
 
 [返回细胞生物首页](index.md) · [返回生物知识库](../index.md)

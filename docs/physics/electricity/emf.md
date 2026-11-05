@@ -14,6 +14,8 @@ $$I = \dfrac{E}{R + r}$$
 
 路端电压 $U = E - Ir = IR$
 
+![闭合电路示意：电源电动势、内阻与外电阻](../../assets/images/phy_circuit.svg)
+
 ---
 
 ## 3. 常见结论

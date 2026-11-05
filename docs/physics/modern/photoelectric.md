@@ -14,6 +14,8 @@ $W_0 = h\nu_0$ 为逸出功，$\nu_0$ 为截止频率。
 
 光子能量 $E = h\nu$，动量 $p = \dfrac{h}{\lambda}$。
 
+![光电效应示意：光子入射与光电子逸出](../../assets/images/phy_photoelectric.svg)
+
 ---
 
 [返回近代物理首页](index.md) · [返回物理知识库](../index.md)

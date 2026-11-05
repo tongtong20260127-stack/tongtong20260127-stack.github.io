@@ -1,5 +1,5 @@
 /**
- * Tong's Knowledge Base — Wrong Book Page
+ * Tong's Knowledge Base — Wrong Book (Supabase)
  */
 (function () {
   function $(id) {
@@ -16,16 +16,12 @@
     if (!el) return;
     el.classList.add("kb-math", "arithmatex");
     function run() {
-      if (window.kbTypeset) {
-        window.kbTypeset(el);
-        return;
-      }
+      if (window.kbTypeset) return window.kbTypeset(el);
       if (window.MathJax && MathJax.typesetPromise) {
         try {
           if (MathJax.typesetClear) MathJax.typesetClear([el]);
         } catch (e) {}
-        MathJax.typesetPromise([el]).catch(function () {});
-        return;
+        return MathJax.typesetPromise([el]).catch(function () {});
       }
       setTimeout(run, 120);
     }
@@ -70,7 +66,6 @@
       if (listEl) listEl.innerHTML = "";
       return;
     }
-
     if (emptyEl) emptyEl.hidden = true;
 
     listEl.innerHTML = list
@@ -92,16 +87,14 @@
           '<div class="wb-item-q kb-math arithmatex">' +
           formatText(item.q) +
           "</div>" +
-          '<details class="wb-item-a">' +
-          "<summary>查看答案</summary>" +
+          '<details class="wb-item-a"><summary>查看答案</summary>' +
           '<div class="wb-answer kb-math arithmatex">' +
           formatText(item.a) +
           "</div></details>" +
           '<div class="wb-item-actions">' +
           '<button type="button" class="quiz-btn wb-btn-remove" data-remove="' +
           item.id +
-          '">移出错题本</button>' +
-          "</div></article>"
+          '">移出错题本</button></div></article>'
         );
       })
       .join("");
@@ -109,9 +102,12 @@
     listEl.querySelectorAll("[data-remove]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var id = btn.getAttribute("data-remove");
-        KBAuth.removeFromWrongBook(id);
-        if (KBAuth.renderHeaderAuth) KBAuth.renderHeaderAuth();
-        render();
+        btn.disabled = true;
+        btn.textContent = "删除中…";
+        Promise.resolve(KBAuth.removeFromWrongBook(id)).then(function () {
+          if (KBAuth.renderHeaderAuth) KBAuth.renderHeaderAuth();
+          render();
+        });
       });
     });
 
@@ -126,29 +122,42 @@
     });
   }
 
+  function refreshAndRender() {
+    if (!window.KBAuth) return;
+    if (!KBAuth.currentUser()) {
+      render();
+      return;
+    }
+    var p = KBAuth.loadWrongBook ? KBAuth.loadWrongBook() : Promise.resolve();
+    Promise.resolve(p).then(function () {
+      render();
+      if (KBAuth.renderHeaderAuth) KBAuth.renderHeaderAuth();
+    });
+  }
+
   function init() {
     var root = $("wrongbook-app");
     if (!root) return;
 
     if ($("wb-open-login")) {
-      $("wb-open-login").addEventListener("click", function () {
+      $("wb-open-login").onclick = function () {
         if (window.KBAuth) KBAuth.openModal();
-      });
+      };
     }
 
     if ($("wb-clear")) {
-      $("wb-clear").addEventListener("click", function () {
+      $("wb-clear").onclick = function () {
         if (!window.KBAuth || !KBAuth.currentUser()) return;
-        if (confirm("确定清空当前账号的全部错题吗？")) {
-          KBAuth.clearWrongBook();
+        if (!confirm("确定清空当前账号的全部错题吗？")) return;
+        Promise.resolve(KBAuth.clearWrongBook()).then(function () {
           if (KBAuth.renderHeaderAuth) KBAuth.renderHeaderAuth();
           render();
-        }
-      });
+        });
+      };
     }
 
-    window.addEventListener("kb-auth-change", render);
-    render();
+    window.addEventListener("kb-auth-change", refreshAndRender);
+    refreshAndRender();
   }
 
   if (document.readyState === "loading") {

@@ -63,6 +63,8 @@ extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
+  - https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
+  - javascripts/supabase-config.js
   - javascripts/auth.js
   - javascripts/extra.js
   - javascripts/quiz.js

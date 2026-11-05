@@ -1,11 +1,11 @@
 # 错题本 Wrong Book
 
-登录后，在随机练习中可将题目加入错题本，按账号独立保存，便于复习巩固。
+登录后，在随机练习中可将题目加入错题本。数据保存在 Supabase 云端，按账号隔离。
 
 <div id="wrongbook-app" class="wrongbook-app" markdown="0">
 
   <div id="wb-login-prompt" class="wb-login-prompt">
-    <p>你当前未登录。请先登录或注册账号，才能查看和使用错题本。</p>
+    <p>你当前未登录。请使用邮箱注册/登录后查看云端错题本。</p>
     <button type="button" id="wb-open-login" class="quiz-btn quiz-btn-next">去登录 / 注册</button>
   </div>
 
@@ -27,5 +27,7 @@
 
 </div>
 
-!!! warning "数据说明"
-    本站为静态页面，账号与错题本保存在 **当前浏览器的本地存储** 中，不会上传到服务器。更换设备、清除浏览器数据或使用无痕模式将无法同步或会丢失数据。
+!!! tip "说明"
+    - 登录方式：邮箱 + 密码（云端账号）
+    - 若注册后无法登录，请到 Supabase 控制台关闭 Email 的 Confirm email，或查收验证邮件
+    - 若提示表不存在，请在 SQL Editor 执行建表语句（见接入说明）

@@ -1,176 +1,256 @@
 /**
- * Tong's Knowledge Base — Auth & Wrong Book (localStorage)
- * 说明：纯前端实现，账号数据仅保存在当前浏览器，不上传服务器。
+ * Tong's Knowledge Base — Supabase Auth + Wrong Book
  */
 (function () {
-  const USERS_KEY = "kb_users_v1";
-  const SESSION_KEY = "kb_session_v1";
-  const WRONG_PREFIX = "kb_wrongbook_v1_";
+  var client = null;
+  var sessionUser = null;
+  var wrongCache = [];
+
+  function cfg() {
+    return window.KB_SUPABASE || {};
+  }
+
+  function ensureClient() {
+    if (client) return client;
+    if (!window.supabase || !window.supabase.createClient) {
+      console.error("[KBAuth] supabase-js 未加载");
+      return null;
+    }
+    var c = cfg();
+    if (!c.url || !c.key) {
+      console.error("[KBAuth] 缺少 Supabase 配置");
+      return null;
+    }
+    client = window.supabase.createClient(c.url, c.key, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true
+      }
+    });
+    return client;
+  }
 
   function simpleHash(str) {
-    let h = 5381;
-    for (let i = 0; i < str.length; i++) {
+    var h = 5381;
+    for (var i = 0; i < str.length; i++) {
       h = ((h << 5) + h) ^ str.charCodeAt(i);
     }
     return (h >>> 0).toString(16);
-  }
-
-  function getUsers() {
-    try {
-      return JSON.parse(localStorage.getItem(USERS_KEY) || "{}");
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function saveUsers(users) {
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
-  }
-
-  function getSession() {
-    try {
-      return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function setSession(user) {
-    if (user) {
-      localStorage.setItem(SESSION_KEY, JSON.stringify({ username: user, ts: Date.now() }));
-    } else {
-      localStorage.removeItem(SESSION_KEY);
-    }
-  }
-
-  function currentUser() {
-    const s = getSession();
-    return s && s.username ? s.username : null;
-  }
-
-  function wrongKey(username) {
-    return WRONG_PREFIX + username;
-  }
-
-  function getWrongBook(username) {
-    username = username || currentUser();
-    if (!username) return [];
-    try {
-      return JSON.parse(localStorage.getItem(wrongKey(username)) || "[]");
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function saveWrongBook(list, username) {
-    username = username || currentUser();
-    if (!username) return false;
-    localStorage.setItem(wrongKey(username), JSON.stringify(list));
-    return true;
   }
 
   function questionId(q) {
     return simpleHash((q.subject || "") + "|" + (q.topic || "") + "|" + (q.q || ""));
   }
 
-  function addToWrongBook(question) {
-    const user = currentUser();
-    if (!user) return { ok: false, reason: "not_login" };
-    const list = getWrongBook(user);
-    const id = questionId(question);
-    if (list.some(function (item) { return item.id === id; })) {
-      return { ok: true, reason: "exists", count: list.length };
+  function displayName(user) {
+    if (!user) return null;
+    if (user.email) return user.email.split("@")[0];
+    return (user.id || "user").slice(0, 8);
+  }
+
+  function currentUser() {
+    return sessionUser ? displayName(sessionUser) : null;
+  }
+
+  function currentUserFull() {
+    return sessionUser;
+  }
+
+  function mapRow(row) {
+    return {
+      id: row.question_hash || row.id,
+      dbId: row.id,
+      subject: row.subject,
+      topic: row.topic,
+      q: row.question,
+      a: row.answer,
+      addedAt: row.created_at
+    };
+  }
+
+  async function refreshSession() {
+    var sb = ensureClient();
+    if (!sb) return null;
+    var res = await sb.auth.getSession();
+    sessionUser = res.data && res.data.session ? res.data.session.user : null;
+    return sessionUser;
+  }
+
+  async function loadWrongBook() {
+    var sb = ensureClient();
+    if (!sb || !sessionUser) {
+      wrongCache = [];
+      return [];
     }
-    list.unshift({
-      id: id,
+    var res = await sb
+      .from("wrong_questions")
+      .select("id, subject, topic, question, answer, question_hash, created_at")
+      .order("created_at", { ascending: false });
+
+    if (res.error) {
+      console.error("[KBAuth] 读取错题失败", res.error);
+      wrongCache = [];
+      return [];
+    }
+    wrongCache = (res.data || []).map(mapRow);
+    return wrongCache;
+  }
+
+  function getWrongBook() {
+    return wrongCache.slice();
+  }
+
+  async function addToWrongBook(question) {
+    var sb = ensureClient();
+    if (!sb) return { ok: false, reason: "no_client", msg: "Supabase 未初始化" };
+    if (!sessionUser) return { ok: false, reason: "not_login", msg: "请先登录" };
+
+    var hash = questionId(question);
+    if (wrongCache.some(function (item) { return item.id === hash; })) {
+      return { ok: true, reason: "exists", count: wrongCache.length };
+    }
+
+    var res = await sb.from("wrong_questions").insert({
+      user_id: sessionUser.id,
       subject: question.subject,
       topic: question.topic,
-      q: question.q,
-      a: question.a,
-      addedAt: new Date().toISOString()
-    });
-    saveWrongBook(list, user);
-    return { ok: true, reason: "added", count: list.length };
-  }
+      question: question.q,
+      answer: question.a,
+      question_hash: hash
+    }).select("id, subject, topic, question, answer, question_hash, created_at").single();
 
-  function removeFromWrongBook(id) {
-    const user = currentUser();
-    if (!user) return false;
-    const list = getWrongBook(user).filter(function (item) { return item.id !== id; });
-    saveWrongBook(list, user);
-    return true;
-  }
-
-  function clearWrongBook() {
-    const user = currentUser();
-    if (!user) return false;
-    saveWrongBook([], user);
-    return true;
-  }
-
-  function register(username, password) {
-    username = (username || "").trim();
-    if (!username || username.length < 2) return { ok: false, msg: "用户名至少 2 个字符" };
-    if (!password || password.length < 4) return { ok: false, msg: "密码至少 4 个字符" };
-    if (/[^a-zA-Z0-9_\u4e00-\u9fa5-]/.test(username)) {
-      return { ok: false, msg: "用户名仅支持中英文、数字、下划线" };
+    if (res.error) {
+      // 唯一约束冲突 → 已存在
+      if (String(res.error.code) === "23505" || /duplicate/i.test(res.error.message || "")) {
+        await loadWrongBook();
+        return { ok: true, reason: "exists", count: wrongCache.length };
+      }
+      console.error("[KBAuth] 加入错题失败", res.error);
+      return {
+        ok: false,
+        reason: "error",
+        msg: res.error.message || "写入失败，请确认已创建 wrong_questions 表"
+      };
     }
-    const users = getUsers();
-    if (users[username]) return { ok: false, msg: "用户名已存在" };
-    users[username] = {
-      hash: simpleHash(password + "::" + username),
-      createdAt: new Date().toISOString()
-    };
-    saveUsers(users);
-    setSession(username);
-    return { ok: true, msg: "注册成功并已登录" };
+
+    wrongCache.unshift(mapRow(res.data));
+    return { ok: true, reason: "added", count: wrongCache.length };
   }
 
-  function login(username, password) {
-    username = (username || "").trim();
-    const users = getUsers();
-    if (!users[username]) return { ok: false, msg: "用户不存在，请先注册" };
-    const hash = simpleHash(password + "::" + username);
-    if (users[username].hash !== hash) return { ok: false, msg: "密码错误" };
-    setSession(username);
+  async function removeFromWrongBook(id) {
+    var sb = ensureClient();
+    if (!sb || !sessionUser) return false;
+
+    var res = await sb.from("wrong_questions").delete().eq("question_hash", id);
+    if (res.error) {
+      // 兼容旧数据用 uuid 当 id
+      res = await sb.from("wrong_questions").delete().eq("id", id);
+    }
+    if (res.error) {
+      console.error("[KBAuth] 删除错题失败", res.error);
+      return false;
+    }
+    wrongCache = wrongCache.filter(function (item) {
+      return item.id !== id && item.dbId !== id;
+    });
+    return true;
+  }
+
+  async function clearWrongBook() {
+    var sb = ensureClient();
+    if (!sb || !sessionUser) return false;
+    var res = await sb.from("wrong_questions").delete().eq("user_id", sessionUser.id);
+    if (res.error) {
+      console.error("[KBAuth] 清空失败", res.error);
+      return false;
+    }
+    wrongCache = [];
+    return true;
+  }
+
+  function friendlyAuthError(err) {
+    var msg = (err && err.message) || "操作失败";
+    if (/invalid login/i.test(msg)) return "邮箱或密码错误";
+    if (/already registered/i.test(msg)) return "该邮箱已注册，请直接登录";
+    if (/password/i.test(msg) && /least/i.test(msg)) return "密码太短，请至少 6 位";
+    if (/rate limit/i.test(msg)) return "尝试过于频繁，请稍后再试";
+    if (/email/i.test(msg) && /confirm/i.test(msg)) return "请先到邮箱点击验证链接（或在 Supabase 关闭邮箱验证）";
+    if (/Failed to fetch|NetworkError|fetch/i.test(msg)) return "网络异常，请检查是否能访问 Supabase";
+    return msg;
+  }
+
+  async function register(email, password) {
+    var sb = ensureClient();
+    if (!sb) return { ok: false, msg: "Supabase 未初始化" };
+    email = (email || "").trim();
+    if (!email || email.indexOf("@") < 1) return { ok: false, msg: "请输入有效邮箱" };
+    if (!password || password.length < 6) return { ok: false, msg: "密码至少 6 位" };
+
+    var res = await sb.auth.signUp({ email: email, password: password });
+    if (res.error) return { ok: false, msg: friendlyAuthError(res.error) };
+
+    // 若未强制邮箱验证，会直接有 session
+    if (res.data && res.data.session) {
+      sessionUser = res.data.session.user;
+      await loadWrongBook();
+      return { ok: true, msg: "注册成功并已登录" };
+    }
+    return {
+      ok: true,
+      msg: "注册成功。若开启了邮箱验证，请到邮箱点链接后再登录；也可在 Supabase 关闭 Confirm email。"
+    };
+  }
+
+  async function login(email, password) {
+    var sb = ensureClient();
+    if (!sb) return { ok: false, msg: "Supabase 未初始化" };
+    email = (email || "").trim();
+    var res = await sb.auth.signInWithPassword({ email: email, password: password });
+    if (res.error) return { ok: false, msg: friendlyAuthError(res.error) };
+    sessionUser = res.data.session.user;
+    await loadWrongBook();
     return { ok: true, msg: "登录成功" };
   }
 
-  function logout() {
-    setSession(null);
+  async function logout() {
+    var sb = ensureClient();
+    if (sb) await sb.auth.signOut();
+    sessionUser = null;
+    wrongCache = [];
   }
 
   function createModal() {
     if (document.getElementById("kb-auth-modal")) return;
 
-    const modal = document.createElement("div");
+    var modal = document.createElement("div");
     modal.id = "kb-auth-modal";
     modal.className = "kb-auth-modal";
     modal.hidden = true;
     modal.innerHTML =
       '<div class="kb-auth-backdrop" data-auth-close></div>' +
-      '<div class="kb-auth-dialog" role="dialog" aria-modal="true" aria-labelledby="kb-auth-title">' +
+      '<div class="kb-auth-dialog" role="dialog" aria-modal="true">' +
       '<button type="button" class="kb-auth-close" data-auth-close aria-label="关闭">×</button>' +
       '<h3 id="kb-auth-title" class="kb-auth-title">登录</h3>' +
-      '<p class="kb-auth-note">账号保存在本浏览器本地，清除浏览器数据会丢失。</p>' +
+      '<p class="kb-auth-note">使用邮箱注册/登录，错题本将同步到云端（Supabase）。</p>' +
       '<div class="kb-auth-tabs">' +
       '<button type="button" class="kb-auth-tab active" data-auth-tab="login">登录</button>' +
       '<button type="button" class="kb-auth-tab" data-auth-tab="register">注册</button>' +
       "</div>" +
       '<form id="kb-auth-form" class="kb-auth-form" autocomplete="on">' +
-      '<label class="kb-auth-field"><span>用户名</span>' +
-      '<input type="text" id="kb-auth-username" name="username" required minlength="2" maxlength="32" placeholder="请输入用户名" /></label>' +
+      '<label class="kb-auth-field"><span>邮箱</span>' +
+      '<input type="email" id="kb-auth-username" name="email" required placeholder="name@example.com" /></label>' +
       '<label class="kb-auth-field"><span>密码</span>' +
-      '<input type="password" id="kb-auth-password" name="password" required minlength="4" maxlength="64" placeholder="请输入密码" /></label>' +
+      '<input type="password" id="kb-auth-password" name="password" required minlength="6" placeholder="至少 6 位" /></label>' +
       '<p id="kb-auth-msg" class="kb-auth-msg" hidden></p>' +
       '<button type="submit" id="kb-auth-submit" class="kb-auth-submit">登录</button>' +
       "</form></div>";
     document.body.appendChild(modal);
 
-    let mode = "login";
+    var mode = "login";
 
     modal.querySelectorAll("[data-auth-close]").forEach(function (el) {
-      el.addEventListener("click", function () { closeModal(); });
+      el.addEventListener("click", closeModal);
     });
 
     modal.querySelectorAll("[data-auth-tab]").forEach(function (tab) {
@@ -181,7 +261,7 @@
         });
         tab.classList.add("active");
         document.getElementById("kb-auth-title").textContent = mode === "login" ? "登录" : "注册";
-        document.getElementById("kb-auth-submit").textContent = mode === "login" ? "登录" : "注册并登录";
+        document.getElementById("kb-auth-submit").textContent = mode === "login" ? "登录" : "注册";
         var msg = document.getElementById("kb-auth-msg");
         msg.hidden = true;
         msg.textContent = "";
@@ -190,20 +270,28 @@
 
     document.getElementById("kb-auth-form").addEventListener("submit", function (e) {
       e.preventDefault();
-      var username = document.getElementById("kb-auth-username").value;
+      var email = document.getElementById("kb-auth-username").value;
       var password = document.getElementById("kb-auth-password").value;
-      var result = mode === "login" ? login(username, password) : register(username, password);
-      var msg = document.getElementById("kb-auth-msg");
-      msg.hidden = false;
-      msg.textContent = result.msg;
-      msg.className = "kb-auth-msg " + (result.ok ? "ok" : "err");
-      if (result.ok) {
-        setTimeout(function () {
-          closeModal();
-          renderHeaderAuth();
-          window.dispatchEvent(new CustomEvent("kb-auth-change"));
-        }, 400);
-      }
+      var submitBtn = document.getElementById("kb-auth-submit");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "请稍候…";
+
+      var task = mode === "login" ? login(email, password) : register(email, password);
+      task.then(function (result) {
+        var msg = document.getElementById("kb-auth-msg");
+        msg.hidden = false;
+        msg.textContent = result.msg;
+        msg.className = "kb-auth-msg " + (result.ok ? "ok" : "err");
+        submitBtn.disabled = false;
+        submitBtn.textContent = mode === "login" ? "登录" : "注册";
+        if (result.ok && sessionUser) {
+          setTimeout(function () {
+            closeModal();
+            renderHeaderAuth();
+            window.dispatchEvent(new CustomEvent("kb-auth-change"));
+          }, 350);
+        }
+      });
     });
   }
 
@@ -224,6 +312,20 @@
     document.body.classList.remove("kb-auth-open");
   }
 
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function resolveWrongbookHref() {
+    var path = window.location.pathname || "";
+    if (path.indexOf("/wrongbook") !== -1) return "./";
+    return "/wrongbook/";
+  }
+
   function renderHeaderAuth() {
     var header = document.querySelector(".md-header__inner");
     if (!header) return;
@@ -236,81 +338,105 @@
       var source =
         header.querySelector('[data-md-component="search"]') ||
         header.querySelector(".md-header__source");
-      if (source) {
-        header.insertBefore(slot, source);
-      } else {
-        header.appendChild(slot);
-      }
+      if (source) header.insertBefore(slot, source);
+      else header.appendChild(slot);
     }
 
-    var user = currentUser();
-    if (user) {
-      var wrongCount = getWrongBook(user).length;
+    var name = currentUser();
+    if (name) {
+      var wrongCount = wrongCache.length;
       slot.innerHTML =
-        '<a class="kb-auth-user" href="' + resolveWrongbookHref() + '" title="我的错题本">' +
-        '<span class="kb-auth-avatar">' + user.charAt(0).toUpperCase() + "</span>" +
-        '<span class="kb-auth-name">' + escapeHtml(user) + "</span>" +
+        '<a class="kb-auth-user" href="' +
+        resolveWrongbookHref() +
+        '" title="我的错题本">' +
+        '<span class="kb-auth-avatar">' +
+        name.charAt(0).toUpperCase() +
+        "</span>" +
+        '<span class="kb-auth-name">' +
+        escapeHtml(name) +
+        "</span>" +
         (wrongCount ? '<span class="kb-auth-badge">' + wrongCount + "</span>" : "") +
         "</a>" +
         '<button type="button" class="kb-auth-logout" title="退出登录">退出</button>';
       slot.querySelector(".kb-auth-logout").addEventListener("click", function () {
-        logout();
-        renderHeaderAuth();
-        window.dispatchEvent(new CustomEvent("kb-auth-change"));
+        logout().then(function () {
+          renderHeaderAuth();
+          window.dispatchEvent(new CustomEvent("kb-auth-change"));
+        });
       });
     } else {
-      slot.innerHTML = '<button type="button" class="kb-auth-login-btn" id="kb-open-login">登录</button>';
+      slot.innerHTML =
+        '<button type="button" class="kb-auth-login-btn" id="kb-open-login">登录</button>';
       slot.querySelector("#kb-open-login").addEventListener("click", openModal);
     }
   }
 
-  function resolveWrongbookHref() {
-    // 尽量兼容不同层级路径
-    var path = window.location.pathname || "";
-    if (path.indexOf("/wrongbook") !== -1) return "./";
-    if (path === "/" || /index\.html?$/.test(path) || path.endsWith("/tongtong20260127-stack.github.io/")) {
-      return "wrongbook/";
-    }
-    // 子页面时回到站点根下的 wrongbook
-    return "/wrongbook/";
-  }
-
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
   window.KBAuth = {
     currentUser: currentUser,
+    currentUserFull: currentUserFull,
     login: login,
     register: register,
     logout: logout,
     openModal: openModal,
     getWrongBook: getWrongBook,
+    loadWrongBook: loadWrongBook,
     addToWrongBook: addToWrongBook,
     removeFromWrongBook: removeFromWrongBook,
     clearWrongBook: clearWrongBook,
     questionId: questionId,
-    renderHeaderAuth: renderHeaderAuth
+    renderHeaderAuth: renderHeaderAuth,
+    refreshSession: refreshSession
   };
 
-  function boot() {
+  async function boot() {
     createModal();
+    try {
+      await refreshSession();
+      if (sessionUser) await loadWrongBook();
+    } catch (e) {
+      console.error("[KBAuth] boot error", e);
+    }
     renderHeaderAuth();
+
+    var sb = ensureClient();
+    if (sb) {
+      sb.auth.onAuthStateChange(function (event, session) {
+        sessionUser = session ? session.user : null;
+        if (sessionUser) {
+          loadWrongBook().then(function () {
+            renderHeaderAuth();
+            window.dispatchEvent(new CustomEvent("kb-auth-change"));
+          });
+        } else {
+          wrongCache = [];
+          renderHeaderAuth();
+          window.dispatchEvent(new CustomEvent("kb-auth-change"));
+        }
+      });
+    }
+  }
+
+  function start() {
+    // 等待 supabase-js CDN
+    if (!window.supabase || !window.supabase.createClient) {
+      setTimeout(start, 50);
+      return;
+    }
+    boot();
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
+    document.addEventListener("DOMContentLoaded", start);
   } else {
-    boot();
+    start();
   }
 
   if (typeof document$ !== "undefined") {
     document$.subscribe(function () {
-      setTimeout(boot, 0);
+      setTimeout(function () {
+        createModal();
+        renderHeaderAuth();
+      }, 0);
     });
   }
 })();

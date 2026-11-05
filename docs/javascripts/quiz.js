@@ -236,7 +236,6 @@
       }
       setTimeout(run, 120);
     }
-    // 等 DOM 更新后再排版
     setTimeout(run, 30);
   }
 
@@ -300,14 +299,12 @@
     }
 
     current = pool[idx];
-
     $("quiz-meta").textContent = current.subject + "  ·  " + current.topic;
     $("quiz-question").innerHTML = formatText(current.q);
     $("quiz-answer").innerHTML = formatText(current.a);
     $("quiz-answer-box").hidden = true;
     $("quiz-btn-answer").disabled = false;
     $("quiz-btn-answer").textContent = "显示答案";
-
     updateWrongBtn();
     renderMath($("quiz-question"));
     renderMath($("quiz-answer"));
@@ -327,40 +324,38 @@
   }
 
   function addWrong() {
-    if (!current) return;
-    if (!window.KBAuth) return;
-
+    if (!current || !window.KBAuth) return;
     if (!KBAuth.currentUser()) {
       KBAuth.openModal();
       return;
     }
 
-    var result = KBAuth.addToWrongBook(current);
-    updateWrongBtn();
-
-    var tip = $("quiz-wrong-tip");
-    if (tip) {
-      if (result.reason === "exists") {
-        tip.textContent = "该题已在错题本中";
-      } else if (result.ok) {
-        tip.textContent = "已加入错题本（当前共 " + result.count + " 题）";
-      } else {
-        tip.textContent = "加入失败，请先登录";
-      }
-      tip.hidden = false;
-      clearTimeout(tip._t);
-      tip._t = setTimeout(function () {
-        tip.hidden = true;
-      }, 2200);
+    var btn = $("quiz-btn-wrong");
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "保存中…";
     }
 
-    if (window.KBAuth.renderHeaderAuth) KBAuth.renderHeaderAuth();
+    Promise.resolve(KBAuth.addToWrongBook(current)).then(function (result) {
+      updateWrongBtn();
+      var tip = $("quiz-wrong-tip");
+      if (tip) {
+        if (result.reason === "exists") tip.textContent = "该题已在错题本中";
+        else if (result.ok) tip.textContent = "已同步到云端错题本（共 " + result.count + " 题）";
+        else tip.textContent = result.msg || "加入失败";
+        tip.hidden = false;
+        clearTimeout(tip._t);
+        tip._t = setTimeout(function () {
+          tip.hidden = true;
+        }, 2500);
+      }
+      if (KBAuth.renderHeaderAuth) KBAuth.renderHeaderAuth();
+    });
   }
 
   function init() {
     var root = $("quiz-app");
     if (!root) return;
-
     if (root.dataset.quizBound === "1") {
       pickQuestion();
       return;
@@ -371,12 +366,10 @@
     if ($("quiz-btn-answer")) $("quiz-btn-answer").addEventListener("click", toggleAnswer);
     if ($("quiz-subject")) $("quiz-subject").addEventListener("change", pickQuestion);
     if ($("quiz-btn-wrong")) $("quiz-btn-wrong").addEventListener("click", addWrong);
-
     window.addEventListener("kb-auth-change", updateWrongBtn);
 
     var countEl = $("quiz-count");
     if (countEl) countEl.textContent = QUESTIONS.length;
-
     pickQuestion();
   }
 

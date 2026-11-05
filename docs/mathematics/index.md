@@ -39,6 +39,13 @@
 - [概率](probability/probability.md)
 - [统计与分布](probability/statistics.md)
 
+### 05 · hdm 的数学社 精选集
+
+[进入精选集 →](hdm-selection/index.md)
+
+- 选题整理自 [hdm 的数学社](https://hdmgydkn.kimi.site/)
+- 含极限、高斯积分、巴塞尔问题、竞赛题等，提示与解答可折叠
+
 ## 学习方法
 
 - 定义与定理：理解知识的逻辑基础

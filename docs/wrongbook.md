@@ -26,8 +26,3 @@
   </div>
 
 </div>
-
-!!! tip "说明"
-    - 登录方式：邮箱 + 密码（云端账号）
-    - 若注册后无法登录，请到 Supabase 控制台关闭 Email 的 Confirm email，或查收验证邮件
-    - 若提示表不存在，请在 SQL Editor 执行建表语句（见接入说明）

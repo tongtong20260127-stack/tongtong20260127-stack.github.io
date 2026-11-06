@@ -47,11 +47,6 @@ theme:
         name: 切换到深色模式
   icon:
     repo: fontawesome/brands/github
-    admonition:
-      note: fontawesome/solid/note-sticky
-      tip: fontawesome/solid/bullseye
-      warning: fontawesome/solid/triangle-exclamation
-      quote: fontawesome/solid/quote-left
 
 plugins:
   - search:
@@ -61,15 +56,20 @@ plugins:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/fav-extra.css
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
   - javascripts/supabase-config.js
   - javascripts/auth.js
+  - javascripts/fav-api.js
   - javascripts/extra.js
+  - javascripts/note-map.js
   - javascripts/quiz.js
+  - javascripts/quiz-fav.js
   - javascripts/wrongbook.js
   - javascripts/exam.js
+  - javascripts/favorites.js
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
@@ -117,6 +117,7 @@ nav:
   - 随机练习: quiz.md
   - 组卷: exam.md
   - 错题本: wrongbook.md
+  - 收藏夹: favorites.md
   - 数学:
     - 概述: mathematics/index.md
     - 代数:
@@ -140,6 +141,7 @@ nav:
       - 排列组合: mathematics/probability/combinatorics.md
       - 概率: mathematics/probability/probability.md
       - 统计与分布: mathematics/probability/statistics.md
+    - 05 hdm的数学社 精选集: mathematics/hdm-selection/index.md
   - 物理:
     - 概述: physics/index.md
     - 力学:

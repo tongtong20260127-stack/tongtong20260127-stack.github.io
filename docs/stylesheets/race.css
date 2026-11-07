@@ -1,0 +1,268 @@
+/* 选择竞速 / 账号 */
+
+.race-app,
+.account-app {
+  margin: 1rem 0 2.5rem;
+}
+
+.race-card {
+  padding: 1.25rem 1.3rem;
+  border-radius: var(--kb-radius);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  box-shadow: var(--kb-shadow);
+  background: var(--md-default-bg-color);
+  margin-bottom: 1.25rem;
+}
+
+.race-muted {
+  opacity: 0.72;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0.25rem 0;
+}
+
+.race-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.race-profile-preview {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.race-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: linear-gradient(135deg, #5c6bc0, #26c6da);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.race-avatar-lg {
+  width: 88px;
+  height: 88px;
+}
+
+.race-ready-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--md-primary-fg-color);
+}
+
+.race-play {
+  position: relative;
+}
+
+.race-hud {
+  position: sticky;
+  top: 3.2rem;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--kb-radius);
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  box-shadow: var(--kb-shadow);
+  font-size: 0.88rem;
+}
+
+.race-hud-sep {
+  opacity: 0.4;
+  margin: 0 0.2rem;
+}
+
+.race-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  color: var(--md-primary-fg-color);
+  min-width: 3.2rem;
+  text-align: right;
+}
+
+.race-timer.is-low {
+  color: #e53935;
+  animation: race-pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes race-pulse {
+  50% { opacity: 0.55; }
+}
+
+.race-question {
+  margin-bottom: 0.5rem;
+}
+
+.race-result-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+}
+
+.race-result-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.race-result-grid > div {
+  text-align: center;
+  padding: 0.7rem 0.4rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-md-color-scheme="slate"] .race-result-grid > div {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.race-result-grid strong {
+  display: block;
+  font-size: 1.25rem;
+  margin-top: 0.25rem;
+  color: var(--md-primary-fg-color);
+}
+
+.race-board-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.race-board-head h3 {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.race-board-note {
+  margin-bottom: 0.85rem;
+}
+
+.race-board-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.race-row {
+  display: grid;
+  grid-template-columns: 2.2rem 2.6rem 1fr auto;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-default-bg-color);
+}
+
+.race-row.is-me {
+  border-color: rgba(92, 107, 192, 0.55);
+  background: rgba(92, 107, 192, 0.08);
+}
+
+.race-row-rank {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--md-accent-fg-color);
+  text-align: center;
+}
+
+.race-row-name {
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.race-row-stats {
+  font-size: 0.78rem;
+  opacity: 0.75;
+  margin-top: 0.12rem;
+}
+
+.race-row-score {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--md-primary-fg-color);
+  white-space: nowrap;
+}
+
+.account-avatar-row {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.account-avatar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.account-file-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.account-nick-label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.account-input {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.95rem;
+}
+
+.account-input:focus {
+  outline: 2px solid var(--md-primary-fg-color);
+  outline-offset: 1px;
+}
+
+.exam-diff {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(92, 107, 192, 0.12);
+  color: var(--md-primary-fg-color);
+}
+
+@media (max-width: 640px) {
+  .race-result-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .race-row {
+    grid-template-columns: 1.8rem 2.2rem 1fr;
+  }
+  .race-row-score {
+    grid-column: 3;
+    justify-self: end;
+  }
+}

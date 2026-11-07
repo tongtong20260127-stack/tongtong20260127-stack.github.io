@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280" width="520" height="280">
+  <rect width="520" height="280" fill="#fafafa"/>
+  <rect x="50" y="70" width="160" height="140" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+  <rect x="310" y="70" width="160" height="140" fill="none" stroke="#c62828" stroke-width="2.5"/>
+  <line x1="130" y1="80" x2="130" y2="200" stroke="#616161" stroke-width="8"/>
+  <line x1="390" y1="80" x2="390" y2="200" stroke="#bdbdbd" stroke-width="8"/>
+  <path d="M130,80 L130,50 L390,50 L390,80" fill="none" stroke="#333" stroke-width="2"/>
+  <circle cx="260" cy="50" r="10" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="260" y="55" text-anchor="middle" fill="#333" font-size="12" font-family="sans-serif">V</text>
+  <text x="130" y="240" text-anchor="middle" fill="#1565c0" font-size="12" font-family="sans-serif">Zn (anode -)</text>
+  <text x="130" y="258" text-anchor="middle" fill="#1565c0" font-size="11" font-family="sans-serif">oxidation</text>
+  <text x="390" y="240" text-anchor="middle" fill="#c62828" font-size="12" font-family="sans-serif">Cu (cathode +)</text>
+  <text x="390" y="258" text-anchor="middle" fill="#c62828" font-size="11" font-family="sans-serif">reduction</text>
+  <text x="130" y="145" text-anchor="middle" fill="#1565c0" font-size="13" font-family="sans-serif">Zn2+</text>
+  <text x="390" y="145" text-anchor="middle" fill="#c62828" font-size="13" font-family="sans-serif">Cu2+</text>
+  <line x1="210" y1="140" x2="310" y2="140" stroke="#6a1b9a" stroke-width="4"/>
+  <text x="260" y="130" text-anchor="middle" fill="#6a1b9a" font-size="11" font-family="sans-serif">salt bridge</text>
+  <text x="260" y="28" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">Galvanic cell (Zn-Cu)</text>
+</svg>

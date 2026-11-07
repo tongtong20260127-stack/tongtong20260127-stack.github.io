@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 280" width="420" height="280">
+  <rect width="420" height="280" fill="#fafafa"/>
+  <rect x="70" y="50" width="50" height="32" rx="4" fill="#e53935"/>
+  <text x="95" y="72" text-anchor="middle" fill="#fff" font-size="14" font-family="sans-serif">A</text>
+  <rect x="280" y="50" width="50" height="32" rx="4" fill="#e53935" opacity="0.55"/>
+  <text x="305" y="72" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">T</text>
+  <line x1="120" y1="66" x2="280" y2="66" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <rect x="70" y="100" width="50" height="32" rx="4" fill="#1e88e5"/>
+  <text x="95" y="122" text-anchor="middle" fill="#fff" font-size="14" font-family="sans-serif">T</text>
+  <rect x="280" y="100" width="50" height="32" rx="4" fill="#1e88e5" opacity="0.55"/>
+  <text x="305" y="122" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">A</text>
+  <line x1="120" y1="116" x2="280" y2="116" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <rect x="70" y="150" width="50" height="32" rx="4" fill="#43a047"/>
+  <text x="95" y="172" text-anchor="middle" fill="#fff" font-size="14" font-family="sans-serif">G</text>
+  <rect x="280" y="150" width="50" height="32" rx="4" fill="#43a047" opacity="0.55"/>
+  <text x="305" y="172" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">C</text>
+  <line x1="120" y1="166" x2="280" y2="166" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <rect x="70" y="200" width="50" height="32" rx="4" fill="#fb8c00"/>
+  <text x="95" y="222" text-anchor="middle" fill="#fff" font-size="14" font-family="sans-serif">C</text>
+  <rect x="280" y="200" width="50" height="32" rx="4" fill="#fb8c00" opacity="0.55"/>
+  <text x="305" y="222" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">G</text>
+  <line x1="120" y1="216" x2="280" y2="216" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <text x="95" y="40" text-anchor="middle" fill="#555" font-size="12" font-family="sans-serif">strand 1</text>
+  <text x="305" y="40" text-anchor="middle" fill="#555" font-size="12" font-family="sans-serif">strand 2</text>
+  <text x="210" y="260" text-anchor="middle" fill="#37474f" font-size="14" font-family="sans-serif">Base pairs: A-T · G-C</text>
+  <text x="210" y="22" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">DNA complementary base pairing</text>
+</svg>

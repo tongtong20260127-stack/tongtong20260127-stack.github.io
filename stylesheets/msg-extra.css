@@ -1,0 +1,36 @@
+/* Messages page */
+.msg-form {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-code-bg-color, rgba(0,0,0,.03));
+}
+.msg-field {
+  display: block;
+  margin-bottom: 0.85rem;
+}
+.msg-field span {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  opacity: 0.85;
+}
+.msg-field input,
+.msg-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+  resize: vertical;
+}
+.msg-history-title {
+  margin-top: 1.5rem;
+  font-size: 1.05rem;
+}
+.quiz-wrong-tip.ok { color: #2e7d32; }
+.quiz-wrong-tip.err { color: #c62828; }

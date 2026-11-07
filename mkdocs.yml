@@ -118,6 +118,12 @@ nav:
   - 首页: index.md
   - 随机练习: quiz.md
   - 组卷: exam.md
+  - 考试真题:
+    - 概述: exams/index.md
+    - 高二上期中:
+      - 概述: exams/gaoer-shang-qizhong/index.md
+      - 化学: exams/gaoer-shang-qizhong/chemistry.md
+      - 物理: exams/gaoer-shang-qizhong/physics.md
   - 错题本: wrongbook.md
   - 收藏夹: favorites.md
   - 给站长留言: messages.md

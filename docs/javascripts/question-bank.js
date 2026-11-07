@@ -1,7 +1,6 @@
 /**
- * Shared question bank for 组卷
- * 70 single-choice + 30 multi-choice
- * difficulty: EZ.1-5, HD.6-10, IN.11-14, AT.15-18
+ * 组卷题库（唯一权威数据源）
+ * 70 单选 + 30 多选；难度 EZ.1–5 / HD.6–10 / IN.11–14 / AT.15–18
  */
 (function () {
   window.KB_QUESTION_BANK = [
@@ -80,7 +79,7 @@
     {"subject": "数学", "topic": "概率", "q": "关于排列组合，正确的是", "options": ["$A_n^k=\\dfrac{n!}{(n-k)!}$", "$C_n^k=C_n^{n-k}$", "$C_n^k=\\dfrac{A_n^k}{k!}$", "$A_n^k=C_n^k$ 恒成立"], "correct": [0, 1, 2], "difficulty": "HD.8", "type": "multi"},
     {"subject": "数学", "topic": "圆锥曲线·双曲线", "q": "双曲线 $\\dfrac{x^2}{a^2}-\\dfrac{y^2}{b^2}=1$ 正确的是", "options": ["渐近线 $y=\\pm\\dfrac{b}{a}x$", "$e>1$", "实轴长 $2a$", "$e<1$"], "correct": [0, 1, 2], "difficulty": "HD.9", "type": "multi"},
     {"subject": "数学", "topic": "代数·导数", "q": "设 $f$ 可导，正确的是", "options": ["$(x^n)'=nx^{n-1}$（$n$ 正整数）", "$(\\sin x)'=\\cos x$", "$(\\ln x)'=1/x$（$x>0$）", "$(e^x)'=xe^{x-1}$"], "correct": [0, 1, 2], "difficulty": "HD.8", "type": "multi"},
-    {"subject": "物理", "topic": "力学", "q": "下列正确的是", "options": ["牛顿第三定律作用力与反作用力等大反向", "动量是矢量", "动能是标量", "合力为零则动量一定为零"], "correct": [0, 1, 2], "difficulty": "HD.8", "type": "multi"},
+    {"subject": "物理", "topic": "力学", "q": "下列关于力学概念正确的是", "options": ["牛顿第三定律作用力与反作用力等大反向", "动量是矢量", "动能是标量", "合力为零则动量一定为零"], "correct": [0, 1, 2], "difficulty": "HD.8", "type": "multi"},
     {"subject": "物理", "topic": "电学·静电场", "q": "关于电场强度，正确的是", "options": ["$E=F/q$ 为定义式，普适", "方向与正试探电荷受力方向相同", "匀强电场中 $U=Ed$（沿场强方向距离）", "场强方向一定与电荷运动方向相同"], "correct": [0, 1, 2], "difficulty": "IN.11", "type": "multi"},
     {"subject": "物理", "topic": "电磁学", "q": "电磁感应中正确的是", "options": ["磁通量变化能产生感应电动势", "楞次定律判断感应电流方向", "$E=Blv$ 适用于导体垂直切割等理想情形", "感应电流方向总与原电流相同"], "correct": [0, 1, 2], "difficulty": "IN.12", "type": "multi"},
     {"subject": "物理", "topic": "近代物理", "q": "光电效应正确结论有", "options": ["存在截止频率", "光电子最大初动能随频率增大而增大", "光强影响单位时间逸出电子数", "只要光强够大任意频率都能发生光电效应"], "correct": [0, 1, 2], "difficulty": "IN.13", "type": "multi"},
@@ -97,7 +96,7 @@
     {"subject": "生物", "topic": "免疫", "q": "特异性免疫包括", "options": ["体液免疫", "细胞免疫", "第一道防线皮肤黏膜", "第二道防线吞噬细胞（非特异性）"], "correct": [0, 1], "difficulty": "HD.9", "type": "multi"},
     {"subject": "英语", "topic": "语法", "q": "关于定语从句，正确的是", "options": ["that 与 which 修饰物时有时可互换", "介词后一般不用 that", "非限制性定语从句不用 that", "that 可引导非限制性定语从句"], "correct": [0, 1, 2], "difficulty": "IN.12", "type": "multi"},
     {"subject": "英语", "topic": "时态", "q": "现在完成时用法包括", "options": ["表示过去发生并对现在有影响", "for/since 连用表示延续", "已经结束的动作列表", "与具体过去时间状语 yesterday 连用"], "correct": [0, 1], "difficulty": "HD.8", "type": "multi"},
-    {"subject": "英语", "topic": "非谓语", "q": "下列正确的是", "options": ["不定式可作目的状语", "现在分词表主动进行", "过去分词表被动完成", "动名词不能作主语"], "correct": [0, 1, 2], "difficulty": "HD.9", "type": "multi"},
+    {"subject": "英语", "topic": "非谓语", "q": "下列关于非谓语正确的是", "options": ["不定式可作目的状语", "现在分词表主动进行", "过去分词表被动完成", "动名词不能作主语"], "correct": [0, 1, 2], "difficulty": "HD.9", "type": "multi"},
     {"subject": "数学", "topic": "立体几何", "q": "关于球，正确的是", "options": ["体积 $\\dfrac{4}{3}\\pi R^3$", "表面积 $4\\pi R^2$", "大圆半径等于球半径", "球心到截面圆圆心距离与截面半径无关恒为0"], "correct": [0, 1, 2], "difficulty": "EZ.5", "type": "multi"},
     {"subject": "数学", "topic": "函数", "q": "二次函数 $y=ax^2+bx+c\\ (a>0)$ 正确的是", "options": ["开口向上", "对称轴 $x=-b/(2a)$", "有最小值", "一定有两个零点"], "correct": [0, 1, 2], "difficulty": "HD.7", "type": "multi"},
     {"subject": "物理", "topic": "电容器", "q": "电荷量不变时，增大平行板间距 $d$", "options": ["电容减小", "电压增大", "电场强度在理想模型下可保持 $E=\\sigma/\\varepsilon$", "电容增大"], "correct": [0, 1, 2], "difficulty": "AT.15", "type": "multi"},
@@ -105,6 +104,6 @@
     {"subject": "生物", "topic": "光合呼吸", "q": "光合作用正确的是", "options": ["光反应产生 ATP 和 [H]", "暗反应在叶绿体基质", "需要色素吸收光能", "只在夜间进行"], "correct": [0, 1, 2], "difficulty": "HD.8", "type": "multi"},
     {"subject": "数学", "topic": "不等式", "q": "对 $a>0,b>0$，正确的是", "options": ["$\\dfrac{a+b}{2}\\ge\\sqrt{ab}$", "等号当 $a=b$", "$a+b\\ge 2\\sqrt{ab}$", "$a+b\\le 2\\sqrt{ab}$ 恒成立"], "correct": [0, 1, 2], "difficulty": "HD.7", "type": "multi"},
     {"subject": "物理", "topic": "牛顿定律", "q": "惯性的正确认识", "options": ["质量是惯性大小的量度", "力不是维持运动的原因", "加速度与合外力同向", "速度越大惯性越大"], "correct": [0, 1, 2], "difficulty": "AT.17", "type": "multi"},
-    {"subject": "综合", "topic": "概念辨析", "q": "下列正确的是", "options": ["牛顿第二定律 $F=ma$", "电荷守恒", "质量是惯性量度", "力是维持速度的原因"], "correct": [0, 1, 2], "difficulty": "AT.18", "type": "multi"}
+    {"subject": "物理", "topic": "近代物理·光电效应", "q": "关于光电效应实验规律，正确的是", "options": ["存在截止频率", "最大初动能与入射光频率有关", "光强影响饱和光电流", "只要光强足够大，任意频率都能产生光电子"], "correct": [0, 1, 2], "difficulty": "IN.13", "type": "multi"}
   ];
 })();

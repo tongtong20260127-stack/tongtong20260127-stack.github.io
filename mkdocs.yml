@@ -58,6 +58,7 @@ extra_css:
   - stylesheets/extra.css
   - stylesheets/fav-extra.css
   - stylesheets/msg-extra.css
+  - stylesheets/race.css
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
@@ -71,6 +72,8 @@ extra_javascript:
   - javascripts/wrongbook.js
   - javascripts/question-bank.js
   - javascripts/exam.js
+  - javascripts/race.js
+  - javascripts/account.js
   - javascripts/favorites.js
   - javascripts/messages.js
   - javascripts/mathjax.js
@@ -119,6 +122,8 @@ nav:
   - 首页: index.md
   - 随机练习: quiz.md
   - 组卷: exam.md
+  - 选择竞速: race.md
+  - 我的账号: account.md
   - 考试真题:
     - 概述: exams/index.md
     - 高二上期中:

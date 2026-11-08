@@ -59,6 +59,7 @@ extra_css:
   - stylesheets/fav-extra.css
   - stylesheets/msg-extra.css
   - stylesheets/race.css
+  - stylesheets/lab.css
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
@@ -76,6 +77,8 @@ extra_javascript:
   - javascripts/account.js
   - javascripts/favorites.js
   - javascripts/messages.js
+  - javascripts/lab-chem.js
+  - javascripts/lab-phys.js
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
@@ -133,6 +136,10 @@ nav:
   - 错题本: wrongbook.md
   - 收藏夹: favorites.md
   - 给站长留言: messages.md
+  - 物理/化学实验:
+    - 概述: lab/index.md
+    - 化学实验台: lab/chemistry.md
+    - 物理实验台: lab/physics.md
   - 数学:
     - 概述: mathematics/index.md
     - 代数:

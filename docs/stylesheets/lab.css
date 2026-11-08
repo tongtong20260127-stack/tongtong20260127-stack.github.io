@@ -1,0 +1,310 @@
+/* 物理 / 化学实验台 */
+
+.lab-app {
+  margin: 1rem 0 2rem;
+}
+
+.lab-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.85rem;
+}
+
+.lab-title-input {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #ccc);
+  background: var(--md-default-bg-color, #fff);
+  color: inherit;
+  font-size: 0.92rem;
+}
+
+.lab-msg {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  min-height: 1.2em;
+}
+
+.lab-msg.ok { color: #2e7d32; }
+.lab-msg.err { color: #c62828; }
+
+.lab-layout {
+  display: grid;
+  grid-template-columns: minmax(11rem, 15rem) 1fr;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .lab-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lab-side {
+  border: 1px solid var(--md-default-fg-color--lightest, #ddd);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  background: var(--md-code-bg-color, rgba(0,0,0,0.04));
+  position: sticky;
+  top: 4.5rem;
+  max-height: calc(100vh - 6rem);
+  overflow: auto;
+}
+
+.lab-side h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.lab-side-note {
+  font-size: 0.78rem;
+  opacity: 0.75;
+  margin-top: 0.6rem;
+  line-height: 1.4;
+}
+
+.lab-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.55rem;
+}
+
+.lab-cat-btn {
+  border: 1px solid var(--md-default-fg-color--lightest, #ccc);
+  background: transparent;
+  color: inherit;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.lab-cat-btn.is-on {
+  background: var(--md-primary-fg-color, #3f51b5);
+  color: #fff;
+  border-color: transparent;
+}
+
+.lab-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.lab-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px dashed var(--md-default-fg-color--lightest, #bbb);
+  background: var(--md-default-bg-color, #fff);
+  cursor: grab;
+  user-select: none;
+  font-size: 0.86rem;
+}
+
+.lab-item:active { cursor: grabbing; }
+
+.lab-item-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.lab-item-icon.eq { background: #5c6bc0; }
+.lab-item-icon.re { background: #26a69a; }
+.lab-item-icon.ht { background: #ef6c00; }
+.lab-item-icon.ph { background: #7e57c2; }
+
+.lab-main {
+  min-width: 0;
+}
+
+.lab-bench-wrap {
+  border-radius: 0.85rem;
+  border: 2px dashed rgba(92, 107, 192, 0.45);
+  background:
+    linear-gradient(180deg, rgba(92,107,192,0.06), transparent 40%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 19px,
+      rgba(128,128,128,0.06) 20px
+    );
+  min-height: 18rem;
+  padding: 0.75rem;
+}
+
+.lab-bench {
+  min-height: 16rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-content: flex-start;
+  position: relative;
+}
+
+.lab-bench.is-dragover {
+  outline: 2px solid var(--md-accent-fg-color, #00bcd4);
+  outline-offset: 2px;
+}
+
+.lab-bench-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.45;
+  pointer-events: none;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.lab-bench:not(:empty) .lab-bench-hint { display: none; }
+
+.lab-piece {
+  width: 7.2rem;
+  min-height: 5.2rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #ccc);
+  background: var(--md-default-bg-color, #fff);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 0.45rem;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.lab-piece.is-selected {
+  box-shadow: 0 0 0 2px var(--md-accent-fg-color, #00bcd4);
+  transform: translateY(-2px);
+}
+
+.lab-piece-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.lab-piece-body {
+  font-size: 0.72rem;
+  line-height: 1.35;
+  opacity: 0.9;
+  word-break: break-all;
+}
+
+.lab-piece-badge {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  font-size: 0.65rem;
+  padding: 0.05rem 0.3rem;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.08);
+}
+
+.lab-piece.has-precipitate { background: linear-gradient(180deg, #fff 55%, #e0e0e0 100%); }
+.lab-piece.has-gas::after {
+  content: "↑";
+  position: absolute;
+  right: 0.4rem;
+  bottom: 0.25rem;
+  opacity: 0.5;
+  animation: lab-bubble 1.2s ease-in-out infinite;
+}
+.lab-piece.is-hot {
+  box-shadow: 0 0 12px rgba(239, 108, 0, 0.55);
+}
+.lab-piece.is-lit {
+  background: radial-gradient(circle at 50% 40%, #fff59d, #fff 55%);
+}
+
+@keyframes lab-bubble {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-4px); opacity: 0.9; }
+}
+
+.lab-ops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-end;
+  margin: 0.85rem 0;
+}
+
+.lab-ops label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.78rem;
+  opacity: 0.9;
+}
+
+.lab-ops select {
+  min-width: 8rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #ccc);
+  background: var(--md-default-bg-color, #fff);
+  color: inherit;
+}
+
+.lab-log {
+  border: 1px solid var(--md-default-fg-color--lightest, #ddd);
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  background: var(--md-code-bg-color, rgba(0,0,0,0.03));
+}
+
+.lab-log h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+}
+
+.lab-eq {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.9rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.5rem;
+  background: rgba(92, 107, 192, 0.08);
+  margin-bottom: 0.55rem;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.lab-log-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.84rem;
+  max-height: 12rem;
+  overflow: auto;
+}
+
+.lab-log-list li {
+  margin: 0.25rem 0;
+}
+
+.lab-piece.phys {
+  width: 6.4rem;
+  min-height: 4.4rem;
+  text-align: center;
+}
+
+.lab-piece.phys .lab-piece-body {
+  font-size: 0.7rem;
+}

@@ -23,11 +23,9 @@
   }
 
   function escapeHtml(s) {
-    return String(s || "")
-      .replace(/&/g, "&")
-      .replace(/</g, "<")
-      .replace(/>/g, ">")
-      .replace(/"/g, """);
+    var d = document.createElement("div");
+    d.textContent = String(s || "");
+    return d.innerHTML;
   }
 
   function defaultAvatar(seed) {
@@ -427,7 +425,7 @@
         list.innerHTML =
           '<p class="race-muted">排行榜加载失败：' +
           escapeHtml(res.error.message || "未知错误") +
-          "。请确认已创建 <code>race_results</code> 表及 RLS 策略。</p>";
+          "。请确认已创建 race_results 表及 RLS 策略。</p>";
         return;
       }
 

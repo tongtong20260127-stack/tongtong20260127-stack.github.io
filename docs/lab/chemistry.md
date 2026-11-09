@@ -1,7 +1,7 @@
 # 化学实验台
 
-从左侧选择**实验器材**或**化学试剂**，拖到右侧实验台。  
-对容器可执行：**倾倒 / 混合 / 加热 / 清空**。发生反应时，下方实时显示**化学方程式**与**离子方程式**。
+左侧分类选择**反应容器 / 加热器具 / 固体·液体药品 / 辅助器材**，拖到深色实验台。  
+容器可选中后进行**倾倒混合、加热、清空**；点击酒精灯可点燃。反应发生时显示化学与离子方程式。
 
 <div id="lab-chem-app" class="lab-app" markdown="0">
   <div class="lab-toolbar">
@@ -11,37 +11,29 @@
     <button type="button" id="lab-chem-clear" class="quiz-btn exam-btn-ghost">清空台面</button>
     <span id="lab-chem-msg" class="lab-msg"></span>
   </div>
-
   <div class="lab-layout">
     <aside class="lab-side">
       <h3>实验物资</h3>
       <div id="lab-chem-cats" class="lab-cats"></div>
       <div id="lab-chem-palette" class="lab-palette"></div>
     </aside>
-
     <main class="lab-main">
       <div class="lab-bench-wrap">
         <div id="lab-chem-bench" class="lab-bench" data-drop="bench">
-          <p class="lab-bench-hint">将器材或试剂拖到此处</p>
+          <p class="lab-bench-hint">将器材或药品拖到实验台上</p>
         </div>
       </div>
-
       <div class="lab-ops">
-        <label>操作目标
-          <select id="lab-chem-target"></select>
-        </label>
-        <label>来源（倾倒）
-          <select id="lab-chem-source"></select>
-        </label>
+        <label>操作目标<select id="lab-chem-target"></select></label>
+        <label>来源（倾倒）<select id="lab-chem-source"></select></label>
         <button type="button" id="lab-chem-pour" class="quiz-btn quiz-btn-answer">倾倒混合</button>
         <button type="button" id="lab-chem-heat" class="quiz-btn exam-btn-ghost">加热</button>
         <button type="button" id="lab-chem-empty" class="quiz-btn exam-btn-ghost">清空容器</button>
         <button type="button" id="lab-chem-remove" class="quiz-btn exam-btn-ghost">移出台面</button>
       </div>
-
       <section class="lab-log">
         <h3>反应与现象</h3>
-        <div id="lab-chem-eq" class="lab-eq kb-math arithmatex">尚无反应</div>
+        <div id="lab-chem-eq" class="lab-eq">尚无反应</div>
         <ul id="lab-chem-log" class="lab-log-list"></ul>
       </section>
     </main>

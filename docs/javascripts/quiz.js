@@ -222,9 +222,13 @@
   function renderMath(el) {
     if (!el) return;
     el.classList.add("kb-math", "arithmatex");
+    // MathJax 若因网络（CDN）加载失败，绝不能无限重试，否则点「下一题」会堆定时器卡死
+    var tries = 0;
+    var maxTries = 25; // ~3s
     function run() {
+      tries += 1;
       if (window.kbTypeset) {
-        window.kbTypeset(el);
+        try { window.kbTypeset(el); } catch (e) {}
         return;
       }
       if (window.MathJax && MathJax.typesetPromise) {
@@ -234,7 +238,7 @@
         MathJax.typesetPromise([el]).catch(function () {});
         return;
       }
-      setTimeout(run, 120);
+      if (tries < maxTries) setTimeout(run, 120);
     }
     setTimeout(run, 30);
   }
@@ -357,6 +361,7 @@
     var root = $("quiz-app");
     if (!root) return;
     if (root.dataset.quizBound === "1") {
+      // 已绑定：仅换题，避免重复 addEventListener
       pickQuestion();
       return;
     }
@@ -366,7 +371,10 @@
     if ($("quiz-btn-answer")) $("quiz-btn-answer").addEventListener("click", toggleAnswer);
     if ($("quiz-subject")) $("quiz-subject").addEventListener("change", pickQuestion);
     if ($("quiz-btn-wrong")) $("quiz-btn-wrong").addEventListener("click", addWrong);
-    window.addEventListener("kb-auth-change", updateWrongBtn);
+    if (root.dataset.authBound !== "1") {
+      root.dataset.authBound = "1";
+      window.addEventListener("kb-auth-change", updateWrongBtn);
+    }
 
     var countEl = $("quiz-count");
     if (countEl) countEl.textContent = QUESTIONS.length;

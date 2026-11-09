@@ -219,7 +219,6 @@
       .replace(/\n/g, "<br>");
   }
 
-  // 串行排版，避免并发 typeset 卡住主线程
   var mathQueue = Promise.resolve();
   function renderMath(el) {
     if (!el) return;
@@ -295,6 +294,9 @@
       $("quiz-answer-box").hidden = true;
       $("quiz-btn-answer").disabled = true;
       updateWrongBtn();
+      if (window.KBQuizUIRefresh) {
+        try { window.KBQuizUIRefresh(); } catch (e) {}
+      }
       return;
     }
 
@@ -315,6 +317,9 @@
     $("quiz-btn-answer").disabled = false;
     $("quiz-btn-answer").textContent = "显示答案";
     updateWrongBtn();
+    if (window.KBQuizUIRefresh) {
+      try { window.KBQuizUIRefresh(); } catch (e) {}
+    }
     renderMath($("quiz-question"));
     renderMath($("quiz-answer"));
   }
@@ -366,7 +371,6 @@
     var root = $("quiz-app");
     if (!root) return;
 
-    // 用 onclick 覆盖绑定，避免 SPA 多次进入重复叠加监听器
     if ($("quiz-btn-next")) $("quiz-btn-next").onclick = function (e) {
       e.preventDefault();
       pickQuestion();

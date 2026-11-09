@@ -1,7 +1,11 @@
 /**
  * Quiz page: knowledge links + favorite button
+ * 注意：禁止在 MutationObserver 回调里无条件改写 DOM，否则会与换题/MathJax 形成死循环卡死页面
  */
 (function () {
+  var updating = false;
+  var debounceTimer = null;
+
   function $(id) {
     return document.getElementById(id);
   }
@@ -27,30 +31,46 @@
     if (!el) return;
     var cur = currentFromDom();
     if (!cur || !window.KBResolveNote) {
-      el.hidden = true;
+      if (!el.hidden || el.innerHTML) {
+        updating = true;
+        el.hidden = true;
+        el.innerHTML = "";
+        updating = false;
+      }
       return;
     }
     var note = KBResolveNote(cur.subject, cur.topic);
     if (!note) {
-      el.hidden = true;
-      el.innerHTML = "";
+      if (!el.hidden || el.innerHTML) {
+        updating = true;
+        el.hidden = true;
+        el.innerHTML = "";
+        updating = false;
+      }
       return;
     }
-    el.hidden = false;
-    el.innerHTML =
+    var html =
       '相关笔记：<a href="' + note.path + '">查看「' + note.label + '」→</a>';
+    // 内容未变则不写 DOM，避免触发观察者
+    if (!el.hidden && el.innerHTML === html) return;
+    updating = true;
+    el.hidden = false;
+    el.innerHTML = html;
+    updating = false;
   }
 
   function updateFavBtn() {
     var btn = $("quiz-btn-fav");
     if (!btn || !window.KBAuth) return;
     if (!KBAuth.currentUser()) {
-      btn.textContent = "收藏（需登录）";
-      btn.classList.remove("is-added");
+      if (btn.textContent !== "收藏（需登录）") {
+        btn.textContent = "收藏（需登录）";
+        btn.classList.remove("is-added");
+      }
       return;
     }
     if (!KBAuth.favoriteId || !KBAuth.getFavorites) {
-      btn.textContent = "收藏";
+      if (btn.textContent !== "收藏") btn.textContent = "收藏";
       return;
     }
     var cur = currentFromDom();
@@ -67,9 +87,22 @@
     var exists = KBAuth.getFavorites().some(function (item) {
       return item.id === id;
     });
-    btn.textContent = exists ? "已收藏" : "收藏";
+    var nextText = exists ? "已收藏" : "收藏";
+    if (btn.textContent !== nextText) btn.textContent = nextText;
     if (exists) btn.classList.add("is-added");
     else btn.classList.remove("is-added");
+  }
+
+  function safeRefresh() {
+    if (updating) return;
+    updateNoteLink();
+    updateFavBtn();
+  }
+
+  function scheduleRefresh() {
+    if (updating) return;
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(safeRefresh, 80);
   }
 
   function onFavClick() {
@@ -121,8 +154,7 @@
       btn.dataset.bound = "1";
       btn.addEventListener("click", onFavClick);
     }
-    updateNoteLink();
-    updateFavBtn();
+    safeRefresh();
   }
 
   function watch() {
@@ -131,10 +163,14 @@
     if (card && !card.dataset.favObs) {
       card.dataset.favObs = "1";
       var obs = new MutationObserver(function () {
-        updateNoteLink();
-        updateFavBtn();
+        if (updating) return;
+        scheduleRefresh();
       });
-      obs.observe(card, { childList: true, subtree: true, characterData: true });
+      // 只观察题干与元信息，避免 note-link 改写连环触发
+      var meta = $("quiz-meta");
+      var q = $("quiz-question");
+      if (meta) obs.observe(meta, { childList: true, subtree: true });
+      if (q) obs.observe(q, { childList: true, subtree: true });
     }
   }
 
@@ -148,6 +184,10 @@
   });
   if (typeof document$ !== "undefined") {
     document$.subscribe(function () {
+      var card = document.getElementById("quiz-card");
+      if (card) card.dataset.favObs = "0";
+      var btn = document.getElementById("quiz-btn-fav");
+      if (btn) btn.dataset.bound = "0";
       setTimeout(watch, 0);
     });
   }

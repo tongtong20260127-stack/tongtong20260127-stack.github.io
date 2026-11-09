@@ -26,33 +26,35 @@
     };
   }
 
+  var lastNoteKey = "";
+
   function updateNoteLink() {
     var el = $("quiz-note-link");
     if (!el) return;
     var cur = currentFromDom();
     if (!cur || !window.KBResolveNote) {
-      if (!el.hidden || el.innerHTML) {
-        updating = true;
-        el.hidden = true;
-        el.innerHTML = "";
-        updating = false;
-      }
+      lastNoteKey = "";
+      updating = true;
+      el.hidden = true;
+      el.innerHTML = "";
+      updating = false;
       return;
     }
+    var key = (cur.subject || "") + "|" + (cur.topic || "");
     var note = KBResolveNote(cur.subject, cur.topic);
     if (!note) {
-      if (!el.hidden || el.innerHTML) {
-        updating = true;
-        el.hidden = true;
-        el.innerHTML = "";
-        updating = false;
-      }
+      if (lastNoteKey === key + "|none" && el.hidden) return;
+      lastNoteKey = key + "|none";
+      updating = true;
+      el.hidden = true;
+      el.innerHTML = "";
+      updating = false;
       return;
     }
     var html =
       '相关笔记：<a href="' + note.path + '">查看「' + note.label + '」→</a>';
-    // 内容未变则不写 DOM，避免触发观察者
-    if (!el.hidden && el.innerHTML === html) return;
+    if (lastNoteKey === key + "|" + note.path && !el.hidden && el.innerHTML === html) return;
+    lastNoteKey = key + "|" + note.path;
     updating = true;
     el.hidden = false;
     el.innerHTML = html;
@@ -166,10 +168,9 @@
         if (updating) return;
         scheduleRefresh();
       });
-      // 只观察题干与元信息，避免 note-link 改写连环触发
       var meta = $("quiz-meta");
       var q = $("quiz-question");
-      if (meta) obs.observe(meta, { childList: true, subtree: true });
+      if (meta) obs.observe(meta, { childList: true, subtree: true, characterData: true });
       if (q) obs.observe(q, { childList: true, subtree: true });
     }
   }
@@ -179,6 +180,9 @@
   } else {
     watch();
   }
+
+  window.KBQuizUIRefresh = safeRefresh;
+
   window.addEventListener("kb-auth-change", function () {
     updateFavBtn();
   });

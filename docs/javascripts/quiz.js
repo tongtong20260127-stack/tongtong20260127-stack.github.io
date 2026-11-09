@@ -219,28 +219,33 @@
       .replace(/\n/g, "<br>");
   }
 
+  // 串行排版，避免并发 typeset 卡住主线程
+  var mathQueue = Promise.resolve();
   function renderMath(el) {
     if (!el) return;
     el.classList.add("kb-math", "arithmatex");
-    // MathJax 若因网络（CDN）加载失败，绝不能无限重试，否则点「下一题」会堆定时器卡死
     var tries = 0;
-    var maxTries = 25; // ~3s
-    function run() {
+    var maxTries = 20;
+    function attempt() {
       tries += 1;
+      if (window.MathJax && MathJax.typesetPromise) {
+        mathQueue = mathQueue
+          .then(function () {
+            try {
+              if (MathJax.typesetClear) MathJax.typesetClear([el]);
+            } catch (e) {}
+            return MathJax.typesetPromise([el]);
+          })
+          .catch(function () {});
+        return;
+      }
       if (window.kbTypeset) {
         try { window.kbTypeset(el); } catch (e) {}
         return;
       }
-      if (window.MathJax && MathJax.typesetPromise) {
-        try {
-          if (MathJax.typesetClear) MathJax.typesetClear([el]);
-        } catch (e) {}
-        MathJax.typesetPromise([el]).catch(function () {});
-        return;
-      }
-      if (tries < maxTries) setTimeout(run, 120);
+      if (tries < maxTries) setTimeout(attempt, 150);
     }
-    setTimeout(run, 30);
+    setTimeout(attempt, 20);
   }
 
   function getFiltered() {
@@ -360,17 +365,23 @@
   function init() {
     var root = $("quiz-app");
     if (!root) return;
-    if (root.dataset.quizBound === "1") {
-      // 已绑定：仅换题，避免重复 addEventListener
-      pickQuestion();
-      return;
-    }
-    root.dataset.quizBound = "1";
 
-    if ($("quiz-btn-next")) $("quiz-btn-next").addEventListener("click", pickQuestion);
-    if ($("quiz-btn-answer")) $("quiz-btn-answer").addEventListener("click", toggleAnswer);
-    if ($("quiz-subject")) $("quiz-subject").addEventListener("change", pickQuestion);
-    if ($("quiz-btn-wrong")) $("quiz-btn-wrong").addEventListener("click", addWrong);
+    // 用 onclick 覆盖绑定，避免 SPA 多次进入重复叠加监听器
+    if ($("quiz-btn-next")) $("quiz-btn-next").onclick = function (e) {
+      e.preventDefault();
+      pickQuestion();
+    };
+    if ($("quiz-btn-answer")) $("quiz-btn-answer").onclick = function (e) {
+      e.preventDefault();
+      toggleAnswer();
+    };
+    if ($("quiz-subject")) $("quiz-subject").onchange = function () {
+      pickQuestion();
+    };
+    if ($("quiz-btn-wrong")) $("quiz-btn-wrong").onclick = function (e) {
+      e.preventDefault();
+      addWrong();
+    };
     if (root.dataset.authBound !== "1") {
       root.dataset.authBound = "1";
       window.addEventListener("kb-auth-change", updateWrongBtn);
@@ -389,8 +400,6 @@
 
   if (typeof document$ !== "undefined") {
     document$.subscribe(function () {
-      var root = document.getElementById("quiz-app");
-      if (root) root.dataset.quizBound = "0";
       setTimeout(init, 0);
     });
   }

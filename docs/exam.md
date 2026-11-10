@@ -31,6 +31,7 @@
         <option value="10" selected>10 题</option>
         <option value="15">15 题</option>
         <option value="20">20 题</option>
+        <option value="30">30 题</option>
       </select>
     </label>
     <button type="button" id="exam-start" class="quiz-btn quiz-btn-next">开始组卷</button>

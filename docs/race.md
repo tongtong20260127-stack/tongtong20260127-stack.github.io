@@ -3,6 +3,8 @@
 限时 **60 秒**，一次只显示一题；提交后进入下一题。时间到自动交卷。  
 **需登录**，并先设置昵称（可上传头像）。多选题须全部选对才计正确。
 
+开始前可勾选本轮学科（全部或任意组合），只从勾选科目出题。
+
 **计分规则（用于排行）：**
 
 `得分 = 正确题数 × 1000 + ⌊正确率 × 100⌋`
@@ -24,6 +26,27 @@
         <div class="race-muted">准备好后点击开始。题库将打乱，60 秒倒计时。</div>
       </div>
     </div>
+
+    <div class="race-subject-picker">
+      <div class="race-subject-title">本轮学科（可多选）</div>
+      <label class="race-sub-item race-sub-all">
+        <input type="checkbox" id="race-sub-all" checked />
+        <span>全部学科</span>
+      </label>
+      <div id="race-sub-list" class="race-sub-list">
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="语文" checked /> 语文</label>
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="数学" checked /> 数学</label>
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="英语" checked /> 英语</label>
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="物理" checked /> 物理</label>
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="化学" checked /> 化学</label>
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="生物" checked /> 生物</label>
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="历史" checked /> 历史</label>
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="地理" checked /> 地理</label>
+        <label class="race-sub-item"><input type="checkbox" class="race-sub" value="政治" checked /> 政治</label>
+      </div>
+      <p class="race-muted race-sub-hint">不勾选任何学科时无法开始；勾选「全部学科」则九科都会出现。</p>
+    </div>
+
     <button type="button" id="race-btn-start" class="quiz-btn quiz-btn-next">开始竞速</button>
   </div>
 

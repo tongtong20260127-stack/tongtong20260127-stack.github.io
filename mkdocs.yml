@@ -72,6 +72,7 @@ extra_javascript:
   - javascripts/quiz-fav.js
   - javascripts/wrongbook.js
   - javascripts/question-bank.js
+  - javascripts/question-bank-extra.js
   - javascripts/exam.js
   - javascripts/race.js
   - javascripts/account.js
@@ -140,6 +141,18 @@ nav:
     - 概述: lab/index.md
     - 化学实验台: lab/chemistry.md
     - 物理实验台: lab/physics.md
+  - 语文:
+    - 概述: chinese/index.md
+    - 文言文阅读:
+      - 常见实词与虚词: chinese/classical/words.md
+      - 句式与翻译要点: chinese/classical/syntax.md
+      - 必修名句梳理: chinese/classical/quotes.md
+    - 现代文阅读:
+      - 论述类与实用类文本: chinese/modern/argument.md
+      - 文学类文本阅读: chinese/modern/literature.md
+    - 写作与表达:
+      - 议论文结构与论证: chinese/writing/argumentation.md
+      - 语言表达与运用: chinese/writing/language.md
   - 数学:
     - 概述: mathematics/index.md
     - 代数:
@@ -164,6 +177,37 @@ nav:
       - 概率: mathematics/probability/probability.md
       - 统计与分布: mathematics/probability/statistics.md
     - 05 hdm的数学社 精选集: mathematics/hdm-selection/index.md
+  - 英语:
+    - 概述: english/index.md
+    - 词汇:
+      - 概述: english/vocabulary/index.md
+      - 高频词汇: english/vocabulary/high-frequency.md
+      - 词根词缀: english/vocabulary/roots.md
+      - 近义辨析: english/vocabulary/synonyms.md
+      - 固定搭配: english/vocabulary/collocations.md
+    - 语法:
+      - 概述: english/grammar/index.md
+      - 时态与语态: english/grammar/tense-voice.md
+      - 非谓语动词: english/grammar/non-finite.md
+      - 从句: english/grammar/clauses.md
+      - 虚拟与倒装: english/grammar/subjunctive-inversion.md
+    - 阅读:
+      - 概述: english/reading/index.md
+      - 长难句: english/reading/long-sentences.md
+      - 解题技巧: english/reading/skills.md
+      - 篇章逻辑: english/reading/structure.md
+    - 写作:
+      - 概述: english/writing/index.md
+      - 应用文: english/writing/practical.md
+      - 读后续写: english/writing/continuation.md
+      - 高分表达: english/writing/advanced.md
+      - 篇章组织: english/writing/organization.md
+    - 听说:
+      - 概述: english/listening-speaking/index.md
+      - 日常交际: english/listening-speaking/daily.md
+      - 话题词汇: english/listening-speaking/topics.md
+      - 口语演讲: english/listening-speaking/speaking.md
+      - 听力技巧: english/listening-speaking/listening.md
   - 物理:
     - 概述: physics/index.md
     - 力学:
@@ -250,35 +294,33 @@ nav:
       - 生态系统: biology/ecology/ecosystem.md
       - 能量与物质: biology/ecology/flow.md
       - 生物多样性: biology/ecology/biodiversity.md
-  - 英语:
-    - 概述: english/index.md
-    - 词汇:
-      - 概述: english/vocabulary/index.md
-      - 高频词汇: english/vocabulary/high-frequency.md
-      - 词根词缀: english/vocabulary/roots.md
-      - 近义辨析: english/vocabulary/synonyms.md
-      - 固定搭配: english/vocabulary/collocations.md
-    - 语法:
-      - 概述: english/grammar/index.md
-      - 时态与语态: english/grammar/tense-voice.md
-      - 非谓语动词: english/grammar/non-finite.md
-      - 从句: english/grammar/clauses.md
-      - 虚拟与倒装: english/grammar/subjunctive-inversion.md
-    - 阅读:
-      - 概述: english/reading/index.md
-      - 长难句: english/reading/long-sentences.md
-      - 解题技巧: english/reading/skills.md
-      - 篇章逻辑: english/reading/structure.md
-    - 写作:
-      - 概述: english/writing/index.md
-      - 应用文: english/writing/practical.md
-      - 读后续写: english/writing/continuation.md
-      - 高分表达: english/writing/advanced.md
-      - 篇章组织: english/writing/organization.md
-    - 听说:
-      - 概述: english/listening-speaking/index.md
-      - 日常交际: english/listening-speaking/daily.md
-      - 话题词汇: english/listening-speaking/topics.md
-      - 口语演讲: english/listening-speaking/speaking.md
-      - 听力技巧: english/listening-speaking/listening.md
+  - 历史:
+    - 概述: history/index.md
+    - 中国古代史:
+      - 制度与经济: history/ancient/institutions.md
+      - 思想文化主线: history/ancient/culture.md
+    - 中国近现代史:
+      - 晚清至民国: history/modern_cn/late-qing-republic.md
+      - 新中国成立以来: history/modern_cn/prc.md
+    - 世界史:
+      - 古代至近代西方: history/world/west.md
+      - 20世纪的世界: history/world/twentieth.md
+  - 地理:
+    - 概述: geography/index.md
+    - 自然地理:
+      - 地球运动与大气: geography/physical/earth-atmosphere.md
+      - 水、地貌与整体性: geography/physical/water-landform.md
+    - 人文地理:
+      - 人口、城市与产业: geography/human/population-industry.md
+    - 区域地理:
+      - 区域发展与环境: geography/regional/development.md
+  - 政治:
+    - 概述: politics/index.md
+    - 经济与社会:
+      - 市场经济与新发展理念: politics/economy/market.md
+    - 政治与法治:
+      - 人民当家作主与治国方略: politics/gov/people-rule.md
+    - 文化与哲学:
+      - 文化作用与文化自信: politics/culture/culture.md
+      - 唯物论与辩证法提要: politics/philosophy/basics.md
   - 关于: about.md

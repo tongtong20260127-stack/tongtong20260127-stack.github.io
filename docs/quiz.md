@@ -9,11 +9,15 @@
       学科筛选
       <select id="quiz-subject" class="quiz-select">
         <option value="全部">全部学科</option>
+        <option value="语文">语文</option>
         <option value="数学">数学</option>
+        <option value="英语">英语</option>
         <option value="物理">物理</option>
         <option value="化学">化学</option>
         <option value="生物">生物</option>
-        <option value="英语">英语</option>
+        <option value="历史">历史</option>
+        <option value="地理">地理</option>
+        <option value="政治">政治</option>
       </select>
     </label>
     <span class="quiz-count-badge">题库共 <strong id="quiz-count">0</strong> 题</span>

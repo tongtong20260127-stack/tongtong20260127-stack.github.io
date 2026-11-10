@@ -1,0 +1,57 @@
+/* 形象化实验台 */
+.lab-app{margin:.5rem 0 2rem}
+.lab-toolbar{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin-bottom:.7rem}
+.lab-title-input{flex:1 1 10rem;min-width:8rem;padding:.4rem .65rem;border-radius:.45rem;border:1px solid var(--md-default-fg-color--lightest,#444);background:var(--md-default-bg-color,#1a1a1a);color:inherit;font-size:.9rem}
+.lab-msg{font-size:.82rem;opacity:.9;min-height:1.15em}.lab-msg.ok{color:#81c784}.lab-msg.err{color:#e57373}
+.lab-layout{display:grid;grid-template-columns:minmax(12rem,16.5rem) 1fr;gap:.75rem;align-items:stretch;min-height:28rem}
+@media(max-width:900px){.lab-layout{grid-template-columns:1fr}}
+.lab-side{border-radius:.85rem;padding:.65rem .55rem .8rem;background:linear-gradient(180deg,#2a2d35 0%,#1e2128 100%);color:#e8eaed;border:1px solid rgba(255,255,255,.08);max-height:36rem;overflow:auto}
+.lab-side h3{margin:0 0 .45rem;font-size:.88rem;font-weight:600;padding:0 .25rem}
+.lab-side-note{font-size:.72rem;opacity:.65;margin:.55rem .25rem 0;line-height:1.4}
+.lab-cats{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem;padding:0 .15rem}
+.lab-cat-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#cfd3dc;border-radius:.4rem;padding:.28rem .5rem;font-size:.72rem;cursor:pointer}
+.lab-cat-btn.is-on{background:#3d5afe;border-color:transparent;color:#fff}
+.lab-palette{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;padding:.15rem}
+.lab-pal-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:.55rem;padding:.35rem .3rem .4rem;cursor:grab;text-align:center;user-select:none;transition:background .15s,transform .12s}
+.lab-pal-card:hover{background:rgba(255,255,255,.12);transform:translateY(-1px)}
+.lab-pal-card:active{cursor:grabbing}
+.lab-pal-art{height:3.4rem;display:flex;align-items:flex-end;justify-content:center;margin-bottom:.2rem}
+.lab-pal-art svg{max-height:100%;width:auto}
+.lab-pal-name{font-size:.68rem;line-height:1.25;color:#e0e3ea;word-break:break-all}
+.lab-main{min-width:0;display:flex;flex-direction:column;gap:.65rem}
+.lab-bench-wrap{flex:1;border-radius:.9rem;border:1px solid rgba(255,255,255,.08);background:radial-gradient(ellipse at 50% 0%,rgba(80,100,160,.18),transparent 55%),linear-gradient(180deg,#2c3038 0%,#1a1d24 70%,#14161b 100%);min-height:22rem;padding:.85rem;position:relative;overflow:hidden}
+.lab-bench-wrap::after{content:"";position:absolute;left:8%;right:8%;bottom:1.1rem;height:.55rem;border-radius:50%;background:rgba(0,0,0,.35);filter:blur(6px);pointer-events:none}
+.lab-bench{min-height:20rem;position:relative;display:flex;flex-wrap:wrap;gap:.85rem 1rem;align-content:flex-end;align-items:flex-end;justify-content:center;padding-bottom:1.6rem;z-index:1}
+.lab-bench.is-dragover{outline:2px dashed #4fc3f7;outline-offset:-6px;border-radius:.6rem}
+.lab-bench-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;margin:0;color:rgba(255,255,255,.35);font-size:.95rem;pointer-events:none}
+.lab-bench:not(:empty) .lab-bench-hint{display:none}
+.lab-entity{position:relative;width:6.2rem;cursor:pointer;text-align:center;transition:transform .15s,filter .15s;filter:drop-shadow(0 6px 8px rgba(0,0,0,.45))}
+.lab-entity:hover{transform:translateY(-3px)}
+.lab-entity.is-selected{filter:drop-shadow(0 0 0 2px #4fc3f7) drop-shadow(0 8px 12px rgba(0,0,0,.5));outline:2px solid #4fc3f7;outline-offset:4px;border-radius:.5rem}
+.lab-entity-art{height:6.8rem;display:flex;align-items:flex-end;justify-content:center}
+.lab-entity-art svg{height:100%;width:auto;max-width:100%}
+.lab-entity-label{margin-top:.25rem;font-size:.68rem;color:#d0d4dc;line-height:1.25;background:rgba(0,0,0,.35);border-radius:.3rem;padding:.15rem .3rem}
+.lab-entity.has-gas .lab-entity-art::before{content:"";position:absolute;top:.2rem;left:50%;width:.35rem;height:.35rem;margin-left:-.6rem;border-radius:50%;background:rgba(200,230,255,.55);animation:lab-bubble-up 1.4s ease-in infinite;box-shadow:.7rem .4rem 0 rgba(200,230,255,.4)}
+@keyframes lab-bubble-up{0%{transform:translateY(8px);opacity:0}40%{opacity:.9}100%{transform:translateY(-18px);opacity:0}}
+.lab-entity.is-lit .lab-entity-art{filter:drop-shadow(0 0 12px rgba(255,200,80,.85))}
+.lab-flame{transform-origin:50% 100%;animation:lab-flicker .35s ease-in-out infinite alternate}
+@keyframes lab-flicker{from{transform:scaleY(1) scaleX(1)}to{transform:scaleY(1.12) scaleX(.92)}}
+.lab-ops{display:flex;flex-wrap:wrap;gap:.45rem;align-items:flex-end}
+.lab-ops label{display:flex;flex-direction:column;gap:.15rem;font-size:.75rem;opacity:.9}
+.lab-ops select{min-width:7.5rem;padding:.32rem .4rem;border-radius:.35rem;border:1px solid var(--md-default-fg-color--lightest,#555);background:var(--md-default-bg-color,#222);color:inherit}
+.lab-log{border-radius:.75rem;padding:.7rem .85rem;background:var(--md-code-bg-color,rgba(0,0,0,.06));border:1px solid var(--md-default-fg-color--lightest,#333)}
+.lab-log h3{margin:0 0 .4rem;font-size:.9rem}
+.lab-eq{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86rem;padding:.5rem .6rem;border-radius:.45rem;background:rgba(63,81,181,.12);margin-bottom:.45rem;white-space:pre-wrap;line-height:1.5}
+.lab-log-list{margin:0;padding-left:1.05rem;font-size:.8rem;max-height:9rem;overflow:auto}
+.lab-log-list li{margin:.2rem 0}
+.lab-bench-phys{align-content:center;align-items:center;gap:1.1rem}
+.lab-entity.phys{width:5.4rem}.lab-entity.phys .lab-entity-art{height:4.6rem}
+.lab-wire-hint{position:absolute;bottom:.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:rgba(255,255,255,.28);pointer-events:none}
+[data-md-color-scheme="default"] .lab-side{background:linear-gradient(180deg,#eceff4 0%,#dde2ea 100%);color:#1a1d24;border-color:#c5cbd6}
+[data-md-color-scheme="default"] .lab-cat-btn{color:#333;border-color:#b0b8c4;background:#fff}
+[data-md-color-scheme="default"] .lab-cat-btn.is-on{background:#3d5afe;color:#fff}
+[data-md-color-scheme="default"] .lab-pal-card{background:#fff;border-color:#c5cbd6}
+[data-md-color-scheme="default"] .lab-pal-name{color:#222}
+[data-md-color-scheme="default"] .lab-bench-wrap{background:radial-gradient(ellipse at 50% 0%,rgba(100,120,180,.12),transparent 55%),linear-gradient(180deg,#e8ecf2 0%,#c8d0dc 100%);border-color:#b0b8c4}
+[data-md-color-scheme="default"] .lab-bench-hint{color:rgba(0,0,0,.35)}
+[data-md-color-scheme="default"] .lab-entity-label{color:#222;background:rgba(255,255,255,.75)}

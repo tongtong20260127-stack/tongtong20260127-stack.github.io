@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" width="480" height="240">
+  <rect width="480" height="240" fill="#fafafa"/>
+  <rect x="60" y="60" width="28" height="120" fill="#78909c" stroke="#37474f" stroke-width="1.5"/>
+  <text x="74" y="200" text-anchor="middle" fill="#555" font-size="12" font-family="sans-serif">metal</text>
+  <line x1="200" y1="80" x2="110" y2="100" stroke="#f9a825" stroke-width="2.5"/>
+  <polygon points="110,100 122,94 120,108" fill="#f9a825"/>
+  <text x="210" y="78" fill="#f9a825" font-size="14" font-family="sans-serif">hv</text>
+  <line x1="200" y1="130" x2="110" y2="140" stroke="#f9a825" stroke-width="2.5"/>
+  <polygon points="110,140 122,134 120,148" fill="#f9a825"/>
+  <text x="210" y="135" fill="#f9a825" font-size="14" font-family="sans-serif">hv</text>
+  <line x1="60" y1="90" x2="30" y2="50" stroke="#1e88e5" stroke-width="2"/>
+  <polygon points="30,50 36,62 42,54" fill="#1e88e5"/>
+  <text x="20" y="45" fill="#1e88e5" font-size="14" font-family="sans-serif">e-</text>
+  <text x="300" y="110" fill="#1565c0" font-size="16" font-family="sans-serif">Ek = hv - W0</text>
+  <text x="300" y="140" fill="#555" font-size="13" font-family="sans-serif">threshold: hv >= W0</text>
+  <text x="240" y="30" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">Photoelectric effect</text>
+</svg>
